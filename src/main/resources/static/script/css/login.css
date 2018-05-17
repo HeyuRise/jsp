@@ -1,0 +1,182 @@
+@font-face {
+    font-family: 'iconfont';  /* project id 398272 */
+    src: url('//at.alicdn.com/t/font_398272_djdkj8uryrjm7vi.eot');
+    src: url('//at.alicdn.com/t/font_398272_djdkj8uryrjm7vi.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_398272_djdkj8uryrjm7vi.woff') format('woff'),
+    url('//at.alicdn.com/t/font_398272_djdkj8uryrjm7vi.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_398272_djdkj8uryrjm7vi.svg#iconfont') format('svg');
+}
+.red{
+	color: red!important
+}
+.iconfont {
+    font-family: "iconfont";
+    font-size: 1.5rem;
+    font-style: normal;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    font-family: HiraginoSansGB-W3;
+    font-size: 18px;
+    text-align: left;
+    color: #cccccc;
+}
+html,body{
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+.clear{
+    clear: both;
+}
+.float{
+    float: right;
+}
+.content{
+    width: 100%;
+    height: 100%;
+}
+.right{
+    width: 56%;
+    height: 100%;
+    background-color: #ebece7;
+    z-index:1;
+    position: absolute;
+}
+.main{
+    width: 1260px;
+    height: 780px;
+    border-radius: 24px;
+    background-color: #ffffff;
+    box-shadow: 42.4px 42.4px 90px 0 rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    bottom: 0;
+}
+.img{
+    background-image: url("../images/img.png");
+    width: 630px;
+    height: 100%;
+    border-top-left-radius:24px;
+    border-bottom-left-radius:24px;
+    float: left;
+}
+.img-content{
+    float: right;
+    margin-right: 80px;
+}
+.logo{
+    width: 120px;
+    height: 120px;
+    border: solid 4px #ffffff;
+    border-radius: 50%;
+    position: relative;
+}
+.logo-content {
+    width: 60px;
+    height: 58px;
+    color: white;
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.title{
+    width: 120px;
+    text-align: right;
+    font-size: 30px;
+    color: white;
+    letter-spacing: 3px;
+}
+.line{
+    width: 180px;
+    height: 2px;
+    opacity: 0.4;
+    background-color: #ffffff;
+}
+.layer {
+    width: 275px;
+    font-family: HiraginoSansGB-W3;
+    font-size: 30px;
+    text-align: left;
+    color: #ffffff;
+}
+.foot {
+    opacity: 0.6;
+    font-family: HiraginoSansGB-W3;
+    font-size: 12px;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.login{
+    width: 630px;
+    height: 100%;
+    float: left;
+}
+.login-title {
+    width: 184px;
+    font-family: HiraginoSansGB-W3;
+    font-size: 18px;
+    line-height: 2;
+    text-align: left;
+    margin-left: 80px;
+    color: #999999;
+    margin-top: 210px;
+}
+.input_content{
+    width: 320px;
+    height: 56px;
+    border-radius: 28px;
+    outline: 0;
+    box-shadow: 0px 4px 20px 0 rgba(0, 0, 0, 0.1);
+    border: solid 2px #bebebe;
+    padding: 0 20px;
+
+}
+.input{
+    height: 30px;
+    margin-top: 11px;
+    outline: 0;
+    border: 0;
+    width: 280px;
+
+}
+.icon{
+    float: right;
+    font-size: 2rem;
+    margin-top: 12px;
+    color: #cccccc;
+}
+.mima{
+    font-family: HiraginoSansGB-W3;
+    font-size: 18px;
+    text-align: left;
+    color: #666666;
+}
+.button {
+    width: 170px;
+    height: 54px;
+    border-radius: 27px;
+    background-color: #33414e;
+    box-shadow: 0px 2px 20px 0 rgba(0, 0, 0, 0.25);
+    outline: 0;
+    color: white;
+    border: 0;
+    font-family: HiraginoSansGB-W3;
+    font-size: 18px;
+}
+button{
+    cursor: pointer;
+}
+@media screen and (max-width:1400px){ 
+	body{zoom:0.75;}
+} 

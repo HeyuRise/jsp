@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.ebes.dao.ExpressMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.ebes.model.Express" >
+    <id column="express_id" property="expressId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="inner_order_id" property="innerOrderId" jdbcType="VARCHAR" />
+    <result column="mail_no" property="mailNo" jdbcType="VARCHAR" />
+    <result column="mail_no_child" property="mailNoChild" jdbcType="VARCHAR" />
+    <result column="dest_code" property="destCode" jdbcType="VARCHAR" />
+    <result column="sender_company" property="senderCompany" jdbcType="VARCHAR" />
+    <result column="sender_name" property="senderName" jdbcType="VARCHAR" />
+    <result column="sender_tel" property="senderTel" jdbcType="VARCHAR" />
+    <result column="sender_mobile" property="senderMobile" jdbcType="VARCHAR" />
+    <result column="sender_province" property="senderProvince" jdbcType="VARCHAR" />
+    <result column="sender_city" property="senderCity" jdbcType="VARCHAR" />
+    <result column="sender_county" property="senderCounty" jdbcType="VARCHAR" />
+    <result column="sender_address" property="senderAddress" jdbcType="VARCHAR" />
+    <result column="recipients_company" property="recipientsCompany" jdbcType="VARCHAR" />
+    <result column="recipients_name" property="recipientsName" jdbcType="VARCHAR" />
+    <result column="recipients_tel" property="recipientsTel" jdbcType="VARCHAR" />
+    <result column="recipients_mobile" property="recipientsMobile" jdbcType="VARCHAR" />
+    <result column="recipients_province" property="recipientsProvince" jdbcType="VARCHAR" />
+    <result column="recipients_city" property="recipientsCity" jdbcType="VARCHAR" />
+    <result column="recipients_county" property="recipientsCounty" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="pay_type_name" property="payTypeName" jdbcType="VARCHAR" />
+    <result column="pay_account" property="payAccount" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="parcel_number" property="parcelNumber" jdbcType="INTEGER" />
+    <result column="filter_result" property="filterResult" jdbcType="INTEGER" />
+    <result column="back_reason" property="backReason" jdbcType="VARCHAR" />
+    <result column="remark_code" property="remarkCode" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    express_id, order_id, inner_order_id, mail_no, mail_no_child, dest_code, sender_company, 
+    sender_name, sender_tel, sender_mobile, sender_province, sender_city, sender_county, 
+    sender_address, recipients_company, recipients_name, recipients_tel, recipients_mobile, 
+    recipients_province, recipients_city, recipients_county, address, count, creator, 
+    pay_type_name, pay_account, money, product_id, parcel_number, filter_result, back_reason, 
+    remark_code, status, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from express
+    where express_id = #{expressId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from express
+    where express_id = #{expressId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.ebes.model.Express" >
+    insert into express (express_id, order_id, inner_order_id, 
+      mail_no, mail_no_child, dest_code, 
+      sender_company, sender_name, sender_tel, 
+      sender_mobile, sender_province, sender_city, 
+      sender_county, sender_address, recipients_company, 
+      recipients_name, recipients_tel, recipients_mobile, 
+      recipients_province, recipients_city, recipients_county, 
+      address, count, creator, 
+      pay_type_name, pay_account, money, 
+      product_id, parcel_number, filter_result, 
+      back_reason, remark_code, status, 
+      create_time, update_time)
+    values (#{expressId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{innerOrderId,jdbcType=VARCHAR}, 
+      #{mailNo,jdbcType=VARCHAR}, #{mailNoChild,jdbcType=VARCHAR}, #{destCode,jdbcType=VARCHAR}, 
+      #{senderCompany,jdbcType=VARCHAR}, #{senderName,jdbcType=VARCHAR}, #{senderTel,jdbcType=VARCHAR}, 
+      #{senderMobile,jdbcType=VARCHAR}, #{senderProvince,jdbcType=VARCHAR}, #{senderCity,jdbcType=VARCHAR}, 
+      #{senderCounty,jdbcType=VARCHAR}, #{senderAddress,jdbcType=VARCHAR}, #{recipientsCompany,jdbcType=VARCHAR}, 
+      #{recipientsName,jdbcType=VARCHAR}, #{recipientsTel,jdbcType=VARCHAR}, #{recipientsMobile,jdbcType=VARCHAR}, 
+      #{recipientsProvince,jdbcType=VARCHAR}, #{recipientsCity,jdbcType=VARCHAR}, #{recipientsCounty,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, 
+      #{payTypeName,jdbcType=VARCHAR}, #{payAccount,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, 
+      #{productId,jdbcType=INTEGER}, #{parcelNumber,jdbcType=INTEGER}, #{filterResult,jdbcType=INTEGER}, 
+      #{backReason,jdbcType=VARCHAR}, #{remarkCode,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.ebes.model.Express" >
+    insert into express
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="expressId != null" >
+        express_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="innerOrderId != null" >
+        inner_order_id,
+      </if>
+      <if test="mailNo != null" >
+        mail_no,
+      </if>
+      <if test="mailNoChild != null" >
+        mail_no_child,
+      </if>
+      <if test="destCode != null" >
+        dest_code,
+      </if>
+      <if test="senderCompany != null" >
+        sender_company,
+      </if>
+      <if test="senderName != null" >
+        sender_name,
+      </if>
+      <if test="senderTel != null" >
+        sender_tel,
+      </if>
+      <if test="senderMobile != null" >
+        sender_mobile,
+      </if>
+      <if test="senderProvince != null" >
+        sender_province,
+      </if>
+      <if test="senderCity != null" >
+        sender_city,
+      </if>
+      <if test="senderCounty != null" >
+        sender_county,
+      </if>
+      <if test="senderAddress != null" >
+        sender_address,
+      </if>
+      <if test="recipientsCompany != null" >
+        recipients_company,
+      </if>
+      <if test="recipientsName != null" >
+        recipients_name,
+      </if>
+      <if test="recipientsTel != null" >
+        recipients_tel,
+      </if>
+      <if test="recipientsMobile != null" >
+        recipients_mobile,
+      </if>
+      <if test="recipientsProvince != null" >
+        recipients_province,
+      </if>
+      <if test="recipientsCity != null" >
+        recipients_city,
+      </if>
+      <if test="recipientsCounty != null" >
+        recipients_county,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="payTypeName != null" >
+        pay_type_name,
+      </if>
+      <if test="payAccount != null" >
+        pay_account,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="parcelNumber != null" >
+        parcel_number,
+      </if>
+      <if test="filterResult != null" >
+        filter_result,
+      </if>
+      <if test="backReason != null" >
+        back_reason,
+      </if>
+      <if test="remarkCode != null" >
+        remark_code,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="expressId != null" >
+        #{expressId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="innerOrderId != null" >
+        #{innerOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="mailNo != null" >
+        #{mailNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mailNoChild != null" >
+        #{mailNoChild,jdbcType=VARCHAR},
+      </if>
+      <if test="destCode != null" >
+        #{destCode,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCompany != null" >
+        #{senderCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="senderName != null" >
+        #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderTel != null" >
+        #{senderTel,jdbcType=VARCHAR},
+      </if>
+      <if test="senderMobile != null" >
+        #{senderMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="senderProvince != null" >
+        #{senderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCity != null" >
+        #{senderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCounty != null" >
+        #{senderCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="senderAddress != null" >
+        #{senderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsCompany != null" >
+        #{recipientsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsName != null" >
+        #{recipientsName,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsTel != null" >
+        #{recipientsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsMobile != null" >
+        #{recipientsMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsProvince != null" >
+        #{recipientsProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsCity != null" >
+        #{recipientsCity,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsCounty != null" >
+        #{recipientsCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="payTypeName != null" >
+        #{payTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccount != null" >
+        #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="parcelNumber != null" >
+        #{parcelNumber,jdbcType=INTEGER},
+      </if>
+      <if test="filterResult != null" >
+        #{filterResult,jdbcType=INTEGER},
+      </if>
+      <if test="backReason != null" >
+        #{backReason,jdbcType=VARCHAR},
+      </if>
+      <if test="remarkCode != null" >
+        #{remarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.ebes.model.Express" >
+    update express
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="innerOrderId != null" >
+        inner_order_id = #{innerOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="mailNo != null" >
+        mail_no = #{mailNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mailNoChild != null" >
+        mail_no_child = #{mailNoChild,jdbcType=VARCHAR},
+      </if>
+      <if test="destCode != null" >
+        dest_code = #{destCode,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCompany != null" >
+        sender_company = #{senderCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="senderName != null" >
+        sender_name = #{senderName,jdbcType=VARCHAR},
+      </if>
+      <if test="senderTel != null" >
+        sender_tel = #{senderTel,jdbcType=VARCHAR},
+      </if>
+      <if test="senderMobile != null" >
+        sender_mobile = #{senderMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="senderProvince != null" >
+        sender_province = #{senderProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCity != null" >
+        sender_city = #{senderCity,jdbcType=VARCHAR},
+      </if>
+      <if test="senderCounty != null" >
+        sender_county = #{senderCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="senderAddress != null" >
+        sender_address = #{senderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsCompany != null" >
+        recipients_company = #{recipientsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsName != null" >
+        recipients_name = #{recipientsName,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsTel != null" >
+        recipients_tel = #{recipientsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsMobile != null" >
+        recipients_mobile = #{recipientsMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsProvince != null" >
+        recipients_province = #{recipientsProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsCity != null" >
+        recipients_city = #{recipientsCity,jdbcType=VARCHAR},
+      </if>
+      <if test="recipientsCounty != null" >
+        recipients_county = #{recipientsCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="payTypeName != null" >
+        pay_type_name = #{payTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccount != null" >
+        pay_account = #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="parcelNumber != null" >
+        parcel_number = #{parcelNumber,jdbcType=INTEGER},
+      </if>
+      <if test="filterResult != null" >
+        filter_result = #{filterResult,jdbcType=INTEGER},
+      </if>
+      <if test="backReason != null" >
+        back_reason = #{backReason,jdbcType=VARCHAR},
+      </if>
+      <if test="remarkCode != null" >
+        remark_code = #{remarkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where express_id = #{expressId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.ebes.model.Express" >
+    update express
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      inner_order_id = #{innerOrderId,jdbcType=VARCHAR},
+      mail_no = #{mailNo,jdbcType=VARCHAR},
+      mail_no_child = #{mailNoChild,jdbcType=VARCHAR},
+      dest_code = #{destCode,jdbcType=VARCHAR},
+      sender_company = #{senderCompany,jdbcType=VARCHAR},
+      sender_name = #{senderName,jdbcType=VARCHAR},
+      sender_tel = #{senderTel,jdbcType=VARCHAR},
+      sender_mobile = #{senderMobile,jdbcType=VARCHAR},
+      sender_province = #{senderProvince,jdbcType=VARCHAR},
+      sender_city = #{senderCity,jdbcType=VARCHAR},
+      sender_county = #{senderCounty,jdbcType=VARCHAR},
+      sender_address = #{senderAddress,jdbcType=VARCHAR},
+      recipients_company = #{recipientsCompany,jdbcType=VARCHAR},
+      recipients_name = #{recipientsName,jdbcType=VARCHAR},
+      recipients_tel = #{recipientsTel,jdbcType=VARCHAR},
+      recipients_mobile = #{recipientsMobile,jdbcType=VARCHAR},
+      recipients_province = #{recipientsProvince,jdbcType=VARCHAR},
+      recipients_city = #{recipientsCity,jdbcType=VARCHAR},
+      recipients_county = #{recipientsCounty,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      pay_type_name = #{payTypeName,jdbcType=VARCHAR},
+      pay_account = #{payAccount,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER},
+      parcel_number = #{parcelNumber,jdbcType=INTEGER},
+      filter_result = #{filterResult,jdbcType=INTEGER},
+      back_reason = #{backReason,jdbcType=VARCHAR},
+      remark_code = #{remarkCode,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where express_id = #{expressId,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from express
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByMailno" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from express
+    where mail_no = #{mailNo,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByMailnoChild" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from express
+    where mail_no_child like '%${mailnoChild}%'
+  </select>
+  <select id="selectTimeOutExpress" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from express
+    where mail_no is null
+    and create_time > #{startTime,jdbcType=TIMESTAMP}
+  </select>
+  <select id="getSelectConditionSize" resultType="java.lang.Integer" parameterType="map">
+  	select count(express_id)
+    from express
+    where 1 = 1
+    <if test="orderId != null">
+    	and order_id like '%${orderId}%'
+    </if>
+    <if test="mailno != null">
+    	and mail_no like '%${mailno}%'
+    </if>
+    <if test="mailnoChild != null">
+    	and mail_no_child like '%${mailnoChild}%'
+    </if>
+    <if test="sendCompany != null">
+    	and sender_company like '%${sendCompany}%'
+    </if>
+    <if test="receiveCompany != null">
+    	and recipients_company like '%${receiveCompany}%'
+    </if>
+    <if test="sendContact != null">
+    	and sender_name like '%${sendContact}%'
+    </if>
+    <if test="receiveContact != null">
+    	and recipients_name like '%${receiveContact}%'
+    </if>
+    <if test="sendDateBegin != null">
+    	<![CDATA[and create_time >= #{sendDateBegin,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="sendDateEnd != null">
+    	<![CDATA[and create_time <= #{sendDateEnd,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="statues != null">
+    	and status in
+    	<foreach collection="statues" index="index" item="item" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+    </if>
+    <if test="expressIds != null">
+    	and express_id in
+    	<foreach collection="expressIds" index="index" item="item" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+    </if>
+  </select>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from express
+    where 1 = 1
+    <if test="orderId != null">
+    	and order_id like '%${orderId}%'
+    </if>
+    <if test="mailno != null">
+    	and mail_no like '%${mailno}%'
+    </if>
+    <if test="mailnoChild != null">
+    	and mail_no_child like '%${mailnoChild}%'
+    </if>
+    <if test="sendCompany != null">
+    	and sender_company like '%${sendCompany}%'
+    </if>
+    <if test="receiveCompany != null">
+    	and recipients_company like '%${receiveCompany}%'
+    </if>
+    <if test="sendContact != null">
+    	and sender_name like '%${sendContact}%'
+    </if>
+    <if test="receiveContact != null">
+    	and recipients_name like '%${receiveContact}%'
+    </if>
+    <if test="sendDateBegin != null">
+    	<![CDATA[and create_time >= #{sendDateBegin,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="sendDateEnd != null">
+    	<![CDATA[and create_time <= #{sendDateEnd,jdbcType=TIMESTAMP}]]>
+    </if>
+    <if test="statues != null">
+    	and status in
+    	<foreach collection="statues" index="index" item="item" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+    </if>
+    <if test="expressIds != null">
+    	and express_id in
+    	<foreach collection="expressIds" index="index" item="item" open="(" separator="," close=")">
+    		#{item}
+    	</foreach>
+    </if>
+    order by create_time desc
+    <if test="start != null">
+    	limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectSynMailno" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from express
+    where inner_order_id is not null
+    and express_id in
+    <foreach collection="expressIds" index="index" item="item" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
+  </select>
+  <select id="getNoMailnoInfos" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from express
+    where money is null 
+    and status in
+    <foreach collection="statues" index="index" item="item" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
+  </select>
+</mapper>

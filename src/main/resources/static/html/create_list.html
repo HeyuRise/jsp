@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>面单电子化系统</title>	
+	<meta name="viewport"content="width=device-width", initial-scale=1, maximum-scale=1″>
+	<link rel="stylesheet" type="text/css" href="../script/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
+	<link media="(max-width:1250px)" href="../script/css/example.css" rel="stylesheet">
+	<link rel="stylesheet" media="(min-width:1250px) and (max-width:1400px)" href="../script/css/simplify.min.css" />
+	<link media="(min-width:1400px)" href="../script/css/simplify.min.css" rel="stylesheet">
+	<link href="../script/css/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../script/css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="../script/css/radio-checkbox.css">
+    <link rel="stylesheet" type="text/css" href="../script/css/bootstrap-datetimepicker.css" >
+    <link rel="stylesheet" type="text/css" href="../script/css/select2.css" >
+   	<script src="../script/js/angular.min.js"></script>
+    <script src="../script/js/jquery-2.1.1.min.js"></script>
+	<script src="../script/js/base.js"></script> 
+    <script src="../script/js/jquery.validate.js"></script> 
+    <script src="../script/js/bootstrap-table.js"></script>
+    <script src="../script/js/bootstrap-table-zh-CN.js"></script>
+    <script src="../script/js/bootstrap.js"></script>
+	<script src="../script/js/sweetalert.min.js"></script>
+	<script src='../script/js/jquery.slimscroll.min.js'></script> 
+	<script src="../script/js/simplify.js"></script>
+	<script src="../script/js/create_list.js"></script>
+	<script src="../print/jquery.jqprint-0.3.js"></script>
+	<script src="../print/jquery-migrate-1.2.1.min.js"></script>
+	<script src="../script/js/select2.full.js"></script>
+	<style >
+		#ss,#auto_input,#autosend_input{display:none}
+		#service_COD,#service_INSURE,#service_MSG,#service_PKFEE,#service_SINSURE,#service_SDELIVERY,#service_SADDSERVICE,#service_TDELIVERY,#service_URGENT,#service_Esign,#service_Psign,#service_FRESH,#service_IN98,#service_IN99{display:none}
+		.radio, .checkbox {margin-top: 2px;margin-bottom: 2px;}
+	</style>
+	<style media="print">#ss{display:block}</style>
+</head>
+<body class="overflow-hidden">
+<div class="wrapper preload">
+	<header class="top-nav" id="header"></header>  
+	<aside class="sidebar-menu fixed">
+		<div class="sidebar-inner scrollable-sidebar">
+			<div class="main-menu">
+				<ul class="accordion" id="navi">
+					<li class="menu-header">菜单</li>
+			    </ul>
+			</div>
+		</div>
+	</aside>
+	<footer class="footer" id="footer"></footer>
+<!-- 	<footer class="footer" id="footer"></footer> -->
+	
+	<div class="main-container" style="min-height: 940px;">
+		<div class="padding-md">
+			<div class="header-text m-top-lg"><h3 style="display: inline-block;margin-top: 0px;margin-bottom: 0px;">新建快递单</h3><span style="color: red;">(标*为必填项)</span></div>
+			<div class="smart-widget" style="background-color: #f5f5f5;">
+				<form id="form" class="form-horizontal" style="padding: 20px 10px;" autocomplete="off">
+					<div style="margin-bottom: 10px;">
+		            	<label>扫描条码</label>
+		                <input id="tiaoma" type="password" class="form-input" style="width: 250px;display: inline-block;" placeholder="扫码创建，请点击这里！">
+		                <label>数量<i class="iconfont red">&#xe600;</i></label>
+		                <input id="parcelQuantity" name="parcelQuantity"  min="1"  value="1" type="number" class="num" style="width: 171px;display: inline-block;">
+		                <label>快递公司<i class="iconfont red">&#xe600;</i></label>
+		                <select class="select-list" id="companyId" name="companyId" style="width: 171px;display: inline-block;"></select>
+		            </div>
+		            <div class="clear"></div>
+					<div style="width: 48%;float: left;">
+					   <div class="biaoti">
+							<p>寄件方信息</p>
+		               </div>
+		               <div class="group-left" >
+		                    <label>寄件公司<i class="iconfont red">&#xe600;</i></label>
+		                    <input type="text" class="input" id="sendCompany" name="sendCompany">
+		               </div>
+		               <div class="group-right" >
+		                    <label>联系人<i class="iconfont red">&#xe600;</i></label>
+		                    <input type="text" class="input" id="sendContact"  name="sendContact">
+		               </div>
+		               <div class="group-left" >
+		                    <label>手机<span class="red" style="font-size: 12px;font-weight: normal;">(若多个手机号请用英文逗号隔开)</span></label>
+		                    <input type="text" class="form-input" id="sendMobile"  name="sendMobile" >
+		               </div>
+		               <div class="group-right" >
+		                    <label>联系电话<i class="iconfont red">&#xe600;</i></label>
+		                    <input type="text" class="input" id="sendTel" name="sendTel" >
+		               </div>
+		               <div class="clear"></div>
+		               <div style="margin-bottom: 10px;">
+		               		<label>省市区<i class="iconfont red">&#xe600;</i></label>
+		                    <div id="autosend_select">
+		                    	<select class="select-list js-example-basic-single"  id="sendProvince"  name="sendProvince" onchange="selectcity()"></select>
+			                    <select id="sendCity" class="select-list js-example-basic-single" name="sendCity"   onchange="selectcountry()"></select>
+			                    <select id="sendCounty" class="select-list js-example-basic-single"  name="sendCounty"></select>
+		                    </div>
+		                     <div id="autosend_input">
+				              <input type="text" class="form-input"  id="sendProvince_input" style="width:33%;display: inline-block;">
+				              <input type="text" class="form-input" id="sendCity_input" style="width:33%;display: inline-block;">
+				              <input type="text" class="form-input" id="sendCounty_input" style="width:33%;display: inline-block;">
+			              </div>
+		               </div>
+		               <div style="margin-bottom: 10px;">
+			               <label>详细地址<i class="iconfont red">&#xe600;</i></label>
+			               <input type="text" class="input" id="sendAddress"  name="sendAddress">
+		               </div>
+		               <div class="biaoti">
+		               		<p>收件方信息</p>
+		               </div>
+		               <div class="group-left" >
+		               		<label>收件公司<i class="iconfont red">&#xe600;</i></label>
+		              		<input type="text" class="input" id="receiverCompany" name="receiverCompany">
+		               </div>
+		               <div class="group-right" >
+			               <label>联系人<i class="iconfont red">&#xe600;</i></label>
+			               <input type="text" class="input" id="receiverContact" name="receiverContact">
+		               </div>
+		               <div class="group-left" >
+			               <label>手机</label>
+			               <input type="text" class="form-input" id="receiverMobile" name="receiverMobile" >
+		               </div>
+		               <div class="group-right" >
+			               <label>联系电话<i class="iconfont red">&#xe600;</i></label>
+			               <input type="text" class="input" id="receiverTel" name="receiverTel" >
+		               </div>
+		               <div class="clear"></div>
+		               <div style="margin-bottom: 10px;">
+		               	  <label>省市区<i class="iconfont red">&#xe600;</i></label>
+			              <div id="auto_select">
+				              <select class="select-list js-example-basic-single" id="receiverProvince" name="receiverProvince" onchange="receovecity()"></select>
+				              <select id="receiverCity" name="receiverCity"  class="select-list js-example-basic-single"   onchange="receovecountry()"></select>
+				              <select id="receiverCounty" name="receiverCounty" class="select-list js-example-basic-single"></select>
+			              </div>
+			              <div id="auto_input">
+				              <input type="text" class="form-input"  id="receiverProvince_input" style="width:33%;display: inline-block;">
+				              <input type="text" class="form-input " id="receiverCity_input" style="width:33%;display: inline-block;">
+				              <input type="text" class="form-input" id="receiverCounty_input" style="width:33%;display: inline-block;">
+			              </div>
+			          </div>
+			          <div style="margin-bottom: 10px;">
+			          		<label>详细地址<i class="iconfont red">&#xe600;</i></label>
+			          		<input type="text" class="input" id="receiverAddress" name="receiverAddress">
+			          </div>
+			          <div class="clear"></div>
+			       </div>
+			       
+			        <div style="width: 48%;float: right;">
+			       	   <div class="biaoti">
+			       	  	   <p class="label_radio">付款方式选择</p>
+					   </div>
+		               <div style="margin-bottom: 10px">
+		                   <label>付款方式<i class="iconfont red">&#xe600;</i></label>
+		                   <div class="radio radio-success" style="display: inline-block;">
+					  	 		<input type="radio"  name="payMethod"   id="1" value="1" >
+					  	 		<label for="1">寄方付</label>
+							</div>
+							<div class="radio radio-success" style="display: inline-block;display: none;">
+					  	 		<input type="radio"  name="payMethod"   id="2" value="2" >
+					  	 		<label for="2">收方付</label>
+							</div>
+							<div class="radio radio-success" style="display: inline-block;">
+					  	 		<input type="radio"  name="payMethod"   id="3" value="3">
+					  	 		<label for="3">第三方付</label>
+							</div>
+		               </div>
+		               <div style="margin-bottom: 10px;" id="yuejie">
+		                    <label>月结卡号</label>&nbsp;&nbsp;
+		                    <input type="password" class="form-input" id="custId"style="display: inline-block;width: 40%">
+		               </div>
+		               <div class="biaoti">
+		                    <p>业务类型</p>
+		               </div>
+		               <div style="margin-bottom: 10px">
+		                    <label>业务类型<i class="iconfont red">&#xe600;</i></label>
+		                    <select class="select-list" id="expressType"></select>
+		               </div>
+		               <div class="biaoti">
+		               		<p>包裹信息</p>
+		               </div>
+		               <div class="group-left" >
+		                    <label>包裹内容<i class="iconfont red">&#xe600;</i></label>
+		                    <input id="name" " list="cars"  class="input">
+		                    <datalist id="cars">
+		                    	<option>SMT</option>
+		                     	<option>PCB</option>
+		                     	<option>COL</option>
+		                     	<option>其他</option>
+		                     	<option>文件</option>
+		                     	<option>衣服</option>
+		                     	<option>食品</option>
+		                     	<option>电子产品</option>
+		                    </datalist>
+		               </div>
+		       		   <div class="group-right" >
+		                    <label>寄托物数量</label>
+		                    <input type="text" class="form-input" id="count">
+		                </div>
+  					   <div class="clear"></div>
+		               <div class="group-right" style="display: none;">
+		                    <label>订单号</label>
+		                    <input type="text" class="form-input" id="orderId" >
+		                </div>
+		                <div class="clear"></div>
+		                <div class="group-left" >
+		                    <label>实际重量<span class="red" style="font-size: 12px;font-weight: normal;">(小数点后最多三位)</span></label>
+		                    <input type="number" class="form-input" id="weight">
+		                </div>
+
+		                <div class="clear"></div>
+		                <div class="biaoti" id="asadsd">
+		                    <p>增值服务</p>
+		                </div>
+		                <div class="add_service" onclick="service()">
+		                	<i class="iconfont" style="font-size: 4rem;text-align: center;">&#xe7b6;</i>
+		                    <p>选择增值服务</p>
+		                </div>
+		                 <div id="addservice"></div>
+		                 <div class="clear"></div>
+	                </div>
+	                <div class="clear"></div>
+				    <div style="text-align: center;">
+						<button  id="tijiao" type="button" class="btn btn-primary" onclick="btn_ok()"style="padding: 10px 16px">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-default" onclick="btn_reset()" style="padding: 10px 16px">重置</button>
+	                </div>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
+<!-- 选择添加增值服务 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">选择增值服务</h4>
+		   </div>
+		   <form id="defaultForm" >
+		   		<div class="modal-body" style=" padding: 0px;min-height: 400px;">
+		   			<div class="modal_right" id="modal-right" style="min-height: 400px;"></div>
+		   			<div class="modal_left" style="padding: 15px;">
+		   				<div id="service_COD" class="sevice_content" >
+		   					<p>代收货款</p>
+		   					<label>货款</label>
+		   					<input type="text">
+		   					<label>代收货款卡号</label>
+		   					<input type="text">
+		   				</div>
+		   				<div id="service_INSURE" class="sevice_content">
+		   					<p>保价</p>
+		   					<label style="display: inline-block;">保价金额</label><span class="red" style="font-size: 12px;font-weight: normal;">(小数点后最多三位)</span>
+		   					<input type="number" class="three">
+		   				</div>
+		   				<div id="service_MSG" class="sevice_content">
+		   					<p>签收短信通知</p>
+		   					<label>手机号</label>
+		   					<input type="text">
+		   				</div>
+		   				<div id="service_PKFEE" class="sevice_content">
+		   					<p>包装服务</p>
+		   					<label style="display: inline-block;">包装费</label><span class="red" style="font-size: 12px;font-weight: normal;">(小数点后最多三位)</span>
+		   					<input type="number" class="three">
+		   				</div>
+		   				<div id="service_SINSURE" class="sevice_content">
+		   					<p>特殊保价</p>
+		   					<label>服务费</label>
+		   					<input type="text">
+		   				</div>
+		   				<div id="service_SDELIVERY" class="sevice_content">
+		   					<p>特殊配送</p>
+		   					<label>服务费</label>
+		   					<input type="text">
+		   				</div>
+		   				<div id="service_SADDSERVICE" class="sevice_content">
+		   					<p>特殊增值服务</p>
+		   					<label>服务费</label>
+		   					<input type="text">
+		   				</div>
+		   				<div id="service_TDELIVERY" class="sevice_content">
+		   					<p>定时派送</p>
+		   					<label>派送日期</label>
+		   					<div class='input-group date' id='datetimepicker1' style="width: 172px;">
+		   						<input type='text' class="form-control" style="background-color: white;" /> 
+		   						<span class="input-group-addon">
+		   							<span class="glyphicon glyphicon-calendar"></span> 
+                                </span> 
+                            </div>
+		   					<label>时间段</label>
+		   					<select class="select-list" style="width: 172px;">
+		   						<option value=""></option>
+		   						<option value="1">09:00-12:00</option>
+		   						<option value="2">12:01-18:00</option>
+		   						<option value="3">18:01-21:00</option>
+		   					</select>
+		   				</div>
+		   				<div id="service_URGENT" class="sevice_content">
+		   					<p>电商加急</p>
+		   					<span>无内容</span>
+		   				</div>
+		   				<div id="service_Esign" class="sevice_content">
+		   					<p>电子签收</p>
+		   					<label>图片类型</label>
+		   					<select class="select-list"  style="width: 172px;">
+		   						<option value=""></option>
+		   						<option value="1">身份证</option>
+		   						<option value="2">军官证</option>
+		   						<option value="3">护照</option>
+		   						<option value="3">其他</option>
+		   					</select>
+		   					<label>照片张数</label>
+		   					<input type="number">
+		   				</div>
+		   				<div id="service_Psign" class="sevice_content">
+		   					<p>拍照验证</p>
+		   					<label>图片类型</label>
+		   					<select class="select-list"  style="width: 172px;">
+		   						<option value=""></option>
+		   						<option value="1">身份证</option>
+		   						<option value="2">军官证</option>
+		   						<option value="3">护照</option>
+		   						<option value="3">其他</option>
+		   					</select>
+		   					<label>照片张数</label>
+		   					<input type="number">
+		   				</div>
+		   				<div id="service_FRESH" class="sevice_content">
+		   					<p>保鲜服务</p>
+		   					<span>无内容</span>
+		   					<label></label>
+		   					<input type="text" style="display: none;">
+		   				</div>
+		   				<div id="service_IN98" class="sevice_content">
+		   					<p>大闸蟹</p>
+		   					<span>无内容</span>
+		   					<label></label>
+		   					<input type="text" style="display: none;">
+		   				</div>
+		   				<div id="service_IN99" class="sevice_content">
+		   					<p>票据专送</p>
+		   					<span>无内容</span>
+		   				</div>
+		   			</div>
+		   			<div class="clear"></div>
+		   		</div>
+		   		<div class="modal-footer">
+			   		<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			   		<button  type="button" class="btn btn-primary" onclick="content_ok()">提交</button>
+			   	</div>
+		 </form>
+		</div>
+	</div>
+</div>
+		
+		
+<!-- 模态框（Modal修改密码-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">修改密码</h4>
+			</div>
+			<form id="Form" autocomplete="off">
+				<div class="modal-body">
+					<div class="form-group" style="width: 80%;margin-left: auto;margin-right: auto">
+						<div style="margin-top:15px;">
+							<label class="control-label ">用户名：</label>
+							<span id="name-acccount"></span>
+						</div>
+						<div style="margin-top:15px;">
+							<label class="control-label ">旧密码：</label>
+							<input type="text" class="input-eight"  name="oldpass" id="oldpass" >
+						</div>
+						<div style="margin-top:15px;">
+							<label class="control-label ">新密码：</label>
+							<input type="text" class="input-eight"  name="newpass"  id="newpass">
+						</div>
+						<div style="margin-top:15px;">
+							<label class="control-label ">新密码：</label>
+							<input type="text" class="input-eight"  name="newpass2"  id="newpass2">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button  type="submit" class="btn btn-primary" onclick="toValidate()">提交</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- 打印区域	 -->
+<div id="ss"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.js-example-basic-single').select2();
+});
+</script>
+</body>
+</html>

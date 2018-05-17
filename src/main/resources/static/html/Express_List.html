@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>面单电子化系统</title>
+    <link rel="stylesheet" type="text/css" href="../script/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
+	<link media="(max-width:1250px)" href="../script/css/example.css" rel="stylesheet">
+	<link rel="stylesheet" media="(min-width:1250px) and (max-width:1400px)" href="../script/css/simplify.min.css" />
+	<link media="(min-width:1400px)" href="../script/css/simplify.min.css" rel="stylesheet">
+	<link href="../script/css/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../script/css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="../script/css/bootstrap-datetimepicker.css" >
+	<script src="../script/js/angular.min.js"></script>
+    <script src="../script/js/jquery-2.1.1.min.js"></script>
+    <script src="../script/js/base.js"></script>
+    <script src="../script/js/bootstrap.js"></script>
+    <script src="../script/js/bootstrap-table.js"></script>
+    <script src='../script/js/Express_List.js'></script>
+
+	<script src="../script/js/bootstrap-datetimepicker.js"></script>
+    <script src="../script/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script src="../print/jquery.jqprint-0.3.js"></script>
+    <script src="../print/jquery-migrate-1.2.1.min.js"></script>
+
+	<script src="../script/js/bootstrap-table-zh-CN.js"></script> 
+	<script src="../script/js/sweetalert.min.js"></script>
+	<script src='../script/js/jquery.slimscroll.min.js'></script>
+	<script src="../script/js/jquery.validate.js"></script> 
+	<style>
+		#print,#btn-print{display:none}
+		#export{display: none;}
+	</style>
+	<style media="print">#print{display:block}</style>
+</head>
+
+<body class="overflow-hidden">
+<div class="wrapper preload">
+	<header class="top-nav" id="header"></header>
+    <aside class="sidebar-menu fixed">
+	    <div class="sidebar-inner scrollable-sidebar">
+			<div class="main-menu">
+				<ul class="accordion" id="navi">
+					<li class="menu-header">菜单</li>
+		        </ul>
+		    </div>
+		</div>
+    </aside>
+    <footer class="footer" id="footer"></footer>
+    
+    <div class="main-container">
+        <div class="padding-md">
+            <h3 class="header-text m-top-lg">快递单列表</h3>
+            <div class="smart-widget">
+                <!--查询条件-->
+                <div class="panel-body" style="padding-bottom:0px;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">查询条件</div>
+                        <div class="panel-body">
+                            <form id="formSearch" class="form-horizontal">
+                            	<table class="searchtable">
+	                            	<tr>
+	                            		<td><label>订单号：</label></td>
+	                            		<td><input type="text" class="form-control" id="orderId"></td>
+	                            		<td><label>运单号：</label></td>
+	                            		<td><input type="text" class="form-control" id="mailno"></td>
+	                            		<td><label>子运单号：</label></td>
+	                            		<td><input type="text" class="form-control" id="mailnoChild"></td>
+	                            		<td><label>状态：</label></td>
+	                            		<td><select id="status" class="select-eight"></select></td>
+	                            	</tr>
+	                            	<tr>
+	                            		<td><label>寄件公司：</label></td>
+	                            		<td><input type="text" class="form-control" id="sendCompany"></td>
+	                            		<td><label>寄件联系人：</label></td>
+	                            		<td><input type="text" class="form-control" id="sendContact"></td>
+	                            		<td><label>收方公司：</label></td>
+	                            		<td><input type="text" class="form-control" id="receiveCompany"></td>
+	                            		<td><label>收方联系人：</label></td>
+	                            		<td><input type="text" class="form-control" id="receiveContact"></td>
+	                            	</tr>
+	                            	<tr>
+	                            		<td><label>创建日期（开始）：</label></td>
+	                            		<td>
+                                             <div id="datetimepicker1" class="input-group date" style="width: 80%">
+                                             	<input id="sendDateBegin" class="form-control" type="text" style="background-color: white" readonly="readonly"> 
+                      							<span class="input-group-addon"> 
+                      								<span class="glyphicon glyphicon-calendar"></span>
+                      							</span>
+											</div>
+                                        </td>
+	                            		<td><label>创建日期（结束）：</label></td>
+	                            		<td>
+	                            			<div  class="input-group date" id='datetimepicker2'style="width: 80%"> 
+												<input type='text' class="form-control" style="background-color: white" readonly id="sendDateEnd"/> 
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+	                            		</td>
+	                            		<td><label>揽件时间（开始）：</label></td>
+		                            	<td>
+	   										<div class='input-group date' id='datetimepicker3'style="width: 80%;"> 
+                                                <input type='text' class="form-control" style="background-color: white" readonly id="receiveDateBegin"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+	                                    </td>
+		                            	<td><label>揽件日期（结束）：</label></td>
+		                            	<td>
+		      								<div class='input-group date' id='datetimepicker4'style="width: 80%;"> 
+                                                <input type='text' class="form-control" style="background-color: white" readonly id="receiveDateEnd"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+		                            	</td>
+	                            	</tr>
+	                            	<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+	                            		<td><button type="button" class="btn btn-primary"  id="btn_search" >查询</button></td>
+	                            		<td><button type="button" class="btn btn-primary"  id="btn_reset">重置</button></td>
+	                            	</tr>
+                            	</table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="smart-widget-header"></div>
+                <!--工具栏-->
+                <div id="toolbar" class="btn-group">
+                    <button id="btn-print" index="2"class="btn btn-primary btn-lg" onclick="print()"> 打印</button>
+                    <button index="1" id="export" class="btn btn-primary btn-lg" style="margin-left: 20px;"  onclick="exportxls()"> 导出</button>
+                    <input type="text" id="num" hidden="hidden">
+                </div>
+                <!--table列表-->
+                <div class="smart-widget-inner">
+                    <div class="smart-widget-body">
+                        <table  id="list"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框（Modal修改密码-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">修改密码</h4>
+			</div>
+			<form id="Form" autocomplete="off">
+				<div class="modal-body">
+					<div class="form-group" style="width: 80%;margin-left: auto;margin-right: auto">
+						<div style="margin-top:15px;">
+							<label class="control-label ">用户名：</label>
+							<span id="name-acccount"></span>
+						</div>
+						<div style="margin-top:15px;">
+							<label class="control-label ">旧密码：</label>
+							<input type="text" class="input-eight"  name="oldpass" id="oldpass">
+						</div>
+						<div style="margin-top:15px;">
+							<label class="control-label ">新密码：</label>
+							<input type="text" class="input-eight"  name="newpass"  id="newpass">
+						</div>
+						<div style="margin-top:15px;">
+							<label class="control-label ">新密码：</label>
+							<input type="text" class="input-eight"  name="newpass2"  id="newpass2">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button  type="submit" class="btn btn-primary" >提交</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="print"></div>
+</body>
+</html>

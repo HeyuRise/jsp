@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>面单电子化系统</title>
+ <script src="script/js/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+$(function(){
+	$.ajax({  
+	    type: "get",  
+	    url: "/jsp/auth/userDetail",  
+	    contentType: 'application/json', 
+	    success: function (data) {  
+			var roles = data.roles;
+			user(roles);
+		}
+	})
+
+	window.localStorage.removeItem(src);
+})
+function user(role){
+	if (role=="" ) {
+		window.location.href="login"
+	}else{
+		window.location.href="html/create_list.html"
+	}
+} 
+</script>
+</body>
+</html>

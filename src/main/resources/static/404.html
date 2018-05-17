@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>出错啦</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+            margin: 0;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        .top > img {
+            width: 80%
+        }
+
+        .middle > img, .bottom > img {
+            height: 1.6em;
+        }
+
+        .bottom {
+            margin-top: 1rem;
+        }
+
+        .bottom > span {
+            line-height: 3rem;
+            font-size: 1.2rem;
+            color: #2ba0ff;
+            position: relative;
+            top: -0.4rem;
+            letter-spacing: 0.5rem;
+        }
+    </style>
+</head>
+<body onclick="goBack()">
+<div class="top"><img src="script/images/404.png"></div>
+<div class="middle"><img src="script/images/404-2.png"></div>
+<div class="bottom">
+    <span id="time">3秒</span>
+    <img src="script/images/404-1.png">
+</div>
+</body>
+<script type="text/javascript" src="script/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        showTime();
+    });
+
+    function goBack() {
+    	history.go(-1);
+    }
+
+    var time = 4;
+    function showTime() {
+        time--;
+        $("#time").text(time + "秒");
+        if (time == 0) {
+            history.go(-1);
+        }
+        if(time >0){
+            setTimeout("showTime()", 1000);
+        }
+
+    }
+
+</script>
+</html>

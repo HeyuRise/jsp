@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>顺丰打印单</title>
+	<link rel="icon" href="">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="../script/js/angular.min.js" type="text/javascript"></script>
+	<script src="../script/js/jquery-2.1.1.min.js"></script>
+	<style>
+	input{
+		border: none;
+		outline: none;
+	}
+	.page {
+	    padding: 0 5px;
+	    overflow: hidden;
+	    padding-bottom: 5px;
+	    margin-top: 84px;
+	}
+  	.img{ 
+  		width: 85mm!important;
+		height: 16mm; 
+		padding-top: 3mm;
+ 	} 
+	.single{
+		width: 65mm!important;
+		height: 13mm;
+	}
+	.m7 {
+	    height: 80px;
+	}
+	.m2 .left img {
+	    margin: 2px auto 4px!important;
+	}
+	.m2 {
+    height: 110px!important;
+	}
+	.ten{font-size: 10pt;}
+	.center{text-align: center;}
+	.e{font-size: 40pt;margin-left: 65mm;}
+	</style>
+</head>
+<body   ng-app="testApp" ng-controller="testCtrl">
+	<div class="page"ng-if="row.expressType!=='顺丰特惠'">
+		<div class="m2 b" style="border-top: 1px solid black;">
+			<div class="left" >
+				<div ng-if="row.express.mailnoChild!=''">
+					<img style="margin: 2px auto 4px!important; padding-top: 3mm;" src="/ebes/barcode?msg={{row.express.mailno}}&type=code128&fmt=svg&hrp=none&height=19&mw=0.68"/>
+					<span>{{$index+1}}</span>/<span ng-bind="row.packageInfo.parcelQuantity"></span></span>
+					<span style="visibility:hidden;">子单号</span>
+					<p class="ten center">母单号&nbsp;&nbsp;&nbsp;<span ng-bind="row.express.mailno"></span></p>
+				</div>
+				<div ng-if="row.express.mailnoChild==''">
+					<img style="margin: 2px auto 4px!important; padding-top: 3mm;" src="/ebes/barcode?msg={{row.express.mailno}}&type=code128&fmt=svg&hrp=none&height=19&mw=0.68"/>
+					<p style="visibility:hidden;"><span >子单号</span></p>
+					<p class="ten center">单号<span ng-bind="row.express.mailno"></span></p>
+				</div>
+			</div>
+			<div class="right">
+				<div class="r1 b">
+					<p ng-bind="row.expressType"></p>
+				</div>
+				<div class="r2" ng-if="row.serviceInfos!=''">
+					<div ng-repeat="z in row.serviceInfos">
+						<span>{{z.serviceName}}</span>
+						<span ng-if="z.value[0]!=''">&nbsp;¥{{z.value[0]}}</span>
+					</div>
+				</div>
+				<div class="r2" ng-if="row.serviceInfos==''">
+					<p class="p1"></p>
+				</div>
+			</div>
+		</div>
+		<div class="m3 b">
+			<div class="left">
+				<p>目的地</p>
+			</div>
+			<div class="right">
+				<p ng-bind="row.destCode"></p>
+			</div>
+		</div>
+		<div class="m4 b">
+			<div class="left">
+				<p>收件人</p>
+			</div>
+			<div class="right">
+				<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+				<p><span ng-bind="row.receiver.company"></span></p>
+				<p>
+					<span ng-bind="row.receiver.address" ></span>
+				</p>
+			</div>
+		</div>
+		<div class="m5 b">
+			<div class="left">
+				<p>寄件人</p>
+			</div>
+			<div class="right-1">
+				<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+				<p>
+					<span ng-bind="row.sender.address" ></span>
+				</p>
+			</div>
+			<div class="right-2">
+				<p class="p1"></p>
+				<p class="p2"></p>
+			</div>
+		</div>
+		<div class="m6 b cl">
+			<div class="left">
+				<div class="l1 b">
+						<ul>
+						<li>件数：<span ng-bind="row.packageInfo.parcelQuantity"></span></li>
+						<li>运费：<span></span></li>
+						</ul>
+						<ul>
+							<li>实际重量：<span ng-bind="row.packageInfo.weight"></span></li>
+							<li ng-if="row.payInfo.custId=='5101203392'">月结账号：<span>510***</span></li>
+							<li ng-if="row.payInfo.custId=='3113128913'">月结账号：<span>311***</span></li>
+						</ul>
+						<ul>
+							<li>计费重量：<span></span></li>
+							<li>付款方式：<span  ng-bind="row.payInfo.payTypeName"></span></li>
+						</ul>
+						<ul ng-if="row.payInfo.payTypeName=='第三方付' && row.payInfo.custId=='5101203392'" >
+							<li>付款网点：<span>510SL</span></li>
+						</ul>
+						<ul ng-if="row.payInfo.payTypeName=='第三方付' && row.payInfo.custId=='3113128913'" >
+							<li>付款网点：<span>311DN</span></li>
+						</ul>
+						<ul ng-if="row.serviceInfos!=''" ng-repeat="a in row.serviceInfos">
+							<li ng-repeat="b in a.key">{{b}}:<span ng-repeat="c in a.value">{{c}}</span></li>
+						</ul>
+						<p></p>
+				</div>
+				<div class="l2">
+					<div class="l2-a">
+						<p>托寄物</p>
+					</div>
+					<div class="l2-b">
+						<span ng-bind="row.packageInfo.name"></span>
+					</div>
+					<div class="l2-c">
+						<ul>
+							<li>收件员：</li>
+							<li>收件日期：</li>
+							<li>派件员：</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<p>签名：</p>
+				<p class="p2">月<span>日</span></p>
+			</div>
+		</div>
+		<div class="item b">
+			<div class="m7 b cl">
+				<div class="left">
+					<img class="img1" src="img/logo.jpg">
+					<img src="img/tel.png">
+				</div>
+				<div class="right">
+					<img style="margin: 8px auto 4px!important;  " src="/ebes/barcode?msg={{row.express.mailno}}&type=code128&fmt=svg&hrp=none&height=17.8&mw=0.54"/>
+					<p  ng-bind="row.express.mailno"></p>
+				</div>
+			</div>
+
+			<div class="m8 b">
+				<div class="left">
+					<p>寄件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+					<p>
+					<span ng-bind="row.sender.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m8 b">
+				<div class="left">
+					<p>收件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+					<p>
+						<span ng-bind="row.receiver.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m10">
+				件数：<span ng-bind="row.packageInfo.parcelQuantity"></span>&nbsp;&nbsp;&nbsp;
+				寄托物数量：<span ng-bind="row.packageInfo.count"></span>&nbsp;&nbsp;&nbsp;
+				寄托物：<span ng-bind="row.packageInfo.name"></span>&nbsp;&nbsp;&nbsp;
+				付款方式：<span  ng-bind="row.payInfo.payTypeName"></span>&nbsp;&nbsp;&nbsp;
+				</br>
+				月结账号：<span ng-if="row.payInfo.custId=='5101203392'">510***</span><span ng-if="row.payInfo.custId=='3113128913'">311***</span>&nbsp;&nbsp;&nbsp;
+				备注：<span ng-bind=""></span>&nbsp;&nbsp;&nbsp;
+				费用合计：<span ng-bind=""></span>
+			</div>
+		</div>
+		<div class="item b">
+			<div class="m7 b cl">
+				<div class="left">
+					<img class="img1" src="img/logo.jpg">
+					<img src="img/tel.png">
+				</div>
+				<div class="right">
+					<img style="margin: 8px auto 4px!important;  " src="/ebes/barcode?msg={{row.express.mailno}}&type=code128&fmt=svg&hrp=none&height=17.8&mw=0.54"/>
+					<p  ng-bind="row.express.mailno"></p>
+				</div>
+			</div>
+			<div class="m8 b">
+				<div class="left">
+					<p>寄件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+					<p>
+					<span ng-bind="row.sender.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m8 b">
+				<div class="left">
+					<p>收件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+					<p>
+						<span ng-bind="row.receiver.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m10">
+				件数：<span ng-bind="row.packageInfo.parcelQuantity"></span>&nbsp;&nbsp;&nbsp;
+				寄托物数量：<span ng-bind="row.packageInfo.count"></span>&nbsp;&nbsp;&nbsp;
+				寄托物：<span ng-bind="row.packageInfo.name"></span>&nbsp;&nbsp;&nbsp;
+				付款方式：<span  ng-bind="row.payInfo.payTypeName"></span>&nbsp;&nbsp;&nbsp;
+				</br>
+				月结账号：<span ng-if="row.payInfo.custId=='5101203392'">510***</span><span ng-if="row.payInfo.custId=='3113128913'">311***</span>&nbsp;&nbsp;&nbsp;
+				备注：<span ng-bind=""></span>&nbsp;&nbsp;&nbsp;
+				费用合计：<span ng-bind=""></span>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="page" style="margin-top: 23px;" ng-if="row.expressType=='顺丰特惠'">
+		<p class="e">E</p>
+		<div class="m2 b" style="border-top: 1px solid black;">
+			<div class="left" >
+				<div ng-if="row.express.mailnoChild!=''">
+					<img style="margin: 2px auto 4px!important; padding-top: 3mm;" src="/ebes/barcode?msg={{row.express.mailno}}&type=code128&fmt=svg&hrp=none&height=19&mw=0.68"/>
+					<span>{{$index+1}}</span>/<span ng-bind="row.packageInfo.parcelQuantity"></span></span>
+					<span style="visibility:hidden;">子单号</span>
+					<p class="ten center">母单号&nbsp;&nbsp;&nbsp;<span ng-bind="row.express.mailno"></span></p>
+				</div>
+				<div ng-if="row.express.mailnoChild==''">
+					<img style="margin: 2px auto 4px!important; padding-top: 3mm;" src="/ebes/barcode?msg={{row.express.mailno}}&type=code128&fmt=svg&hrp=none&height=19&mw=0.68"/>
+					<p style="visibility:hidden;"><span >子单号</span></p>
+					<p class="ten center">单号<span ng-bind="row.express.mailno"></span></p>
+				</div>
+			</div>
+			<div class="right">
+				<div class="r1 b">
+					<p ng-bind="row.expressType"></p>
+				</div>
+				<div class="r2">
+					<p class="p1"></p>
+					<p class="p2"></p>
+					<p class="p3"></p>
+				</div>
+			</div>
+		</div>
+		<div class="m3 b">
+			<div class="left">
+				<p>目的地</p>
+			</div>
+			<div class="right">
+				<p ng-bind="row.destCode"></p>
+			</div>
+		</div>
+		<div class="m4 b">
+			<div class="left">
+				<p>收件人</p>
+			</div>
+			<div class="right">
+				<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+				<p><span ng-bind="row.receiver.company"></span></p>
+				<p>
+					<span ng-bind="row.receiver.address" ></span>
+				</p>
+			</div>
+		</div>
+		<div class="m5 b">
+			<div class="left">
+				<p>寄件人</p>
+			</div>
+			<div class="right-1">
+				<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+				<p>
+					<span ng-bind="row.sender.address" ></span>
+				</p>
+			</div>
+			<div class="right-2">
+				<p class="p1"></p>
+				<p class="p2"></p>
+			</div>
+		</div>
+		<div class="m6 b cl">
+			<div class="left">
+				<div class="l1 b">
+						<ul>
+						<li>件数：<span ng-bind="row.packageInfo.parcelQuantity"></span></li>
+						<li>运费：<span></span></li>
+						</ul>
+						<ul>
+							<li>实际重量：<span ng-bind="row.packageInfo.weight"></span></li>
+							<li ng-if="row.payInfo.custId=='5101203392'">月结账号：<span>510***</span></li>
+							<li ng-if="row.payInfo.custId=='3113128913'">月结账号：<span>311***</span></li>
+						</ul>
+						<ul>
+							<li>计费重量：<span></span></li>
+							<li>付款方式：<span  ng-bind="row.payInfo.payTypeName"></span></li>
+						</ul>
+						<ul ng-if="row.payInfo.payTypeName=='第三方付' && row.payInfo.custId=='5101203392'" >
+							<li>付款网点：<span>510SL</span></li>
+						</ul>
+						<ul ng-if="row.payInfo.payTypeName=='第三方付' && row.payInfo.custId=='3113128913'" >
+							<li>付款网点：<span>311DN</span></li>
+						</ul>
+						<ul ng-if="row.serviceInfos!=''" ng-repeat="a in row.serviceInfos">
+							<li ng-repeat="b in a.key">{{b}}:<span ng-repeat="c in a.value">{{c}}</span></li>
+						</ul>
+						<p></p>
+				</div>
+				<div class="l2">
+					<div class="l2-a">
+						<p>托寄物</p>
+					</div>
+					<div class="l2-b">
+						<span ng-bind="row.packageInfo.name"></span>
+					</div>
+					<div class="l2-c">
+						<ul>
+							<li>收件员：</li>
+							<li>收件日期：</li>
+							<li>派件员：</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<p>签名：</p>
+				<p class="p2">月<span>日</span></p>
+			</div>
+		</div>
+		<div class="item b">
+			<div class="m7 b cl">
+				<div class="left">
+					<img class="img1" src="img/logo.jpg">
+					<img src="img/tel.png">
+				</div>
+				<div class="right">
+					<img style="margin: 8px auto 4px!important;  " src="/ebes/barcode?msg={{row.express.mailno}}&type=code128&fmt=svg&hrp=none&height=17.8&mw=0.54"/>
+					<p  ng-bind="row.express.mailno"></p>
+				</div>
+			</div>
+
+			<div class="m8 b">
+				<div class="left">
+					<p>寄件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+					<p>
+					<span ng-bind="row.sender.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m8 b">
+				<div class="left">
+					<p>收件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+					<p>
+						<span ng-bind="row.receiver.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m10">
+				件数：<span ng-bind="row.packageInfo.parcelQuantity"></span>&nbsp;&nbsp;&nbsp;
+				寄托物数量：<span ng-bind="row.packageInfo.count"></span>&nbsp;&nbsp;&nbsp;
+				寄托物：<span ng-bind="row.packageInfo.name"></span>&nbsp;&nbsp;&nbsp;
+				付款方式：<span  ng-bind="row.payInfo.payTypeName"></span>&nbsp;&nbsp;&nbsp;
+				</br>
+				月结账号：<span ng-if="row.payInfo.custId=='5101203392'">510***</span><span ng-if="row.payInfo.custId=='3113128913'">311***</span>&nbsp;&nbsp;&nbsp;
+				备注：<span ng-bind=""></span>&nbsp;&nbsp;&nbsp;
+				费用合计：<span ng-bind=""></span>
+			</div>
+		</div>
+		<div class="item b">
+			<div class="m7 b cl">
+				<div class="left">
+					<img class="img1" src="img/logo.jpg">
+					<img src="img/tel.png">
+				</div>
+				<div class="right">
+					<img style="margin: 8px auto 4px!important;  " src="/ebes/barcode?msg={{row.express.mailno}}&type=code128&fmt=svg&hrp=none&height=17.8&mw=0.54"/>
+				    <p  ng-bind="row.express.mailno"></p>
+				</div>
+			</div>
+			<div class="m8 b">
+				<div class="left">
+					<p>寄件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+					<p>
+					<span ng-bind="row.sender.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m8 b">
+				<div class="left">
+					<p>收件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+					<p>
+						<span ng-bind="row.receiver.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m10">
+				件数：<span ng-bind="row.packageInfo.parcelQuantity"></span>&nbsp;&nbsp;&nbsp;
+				寄托物数量：<span ng-bind="row.packageInfo.count"></span>&nbsp;&nbsp;&nbsp;
+				寄托物：<span ng-bind="row.packageInfo.name"></span>&nbsp;&nbsp;&nbsp;
+				付款方式：<span  ng-bind="row.payInfo.payTypeName"></span>&nbsp;&nbsp;&nbsp;
+				</br>
+				月结账号：<span ng-if="row.payInfo.custId=='5101203392'">510***</span><span ng-if="row.payInfo.custId=='3113128913'">311***</span>&nbsp;&nbsp;&nbsp;
+				备注：<span ng-bind=""></span>&nbsp;&nbsp;&nbsp;
+				费用合计：<span ng-bind=""></span>
+			</div>
+		</div>
+
+	</div>
+	
+	
+
+	<div  ng-if="row.express.mailnoChild!=''"  ng-repeat="y in row.express.mailnoChild">
+		<div class="page"ng-if="row.expressType!=='顺丰特惠'">
+			<div class="m2 b" style="border-top: 1px solid black;">
+				<div class="left">
+					<img style="margin: 2px auto 4px!important; padding-top: 3mm;" src="/ebes/barcode?msg={{y}}&type=code128&fmt=svg&hrp=none&height=19&mw=0.68"/>
+					<div>
+							<span>{{$index+2}}</span>/<span ng-bind="row.packageInfo.parcelQuantity"></span></span>
+							<p class="ten center" style="margin-top: -15px;">子单号&nbsp;&nbsp;&nbsp;<span >{{y}}</span></p>
+							<p class="ten center">母单号&nbsp;&nbsp;&nbsp;<span ng-bind="row.express.mailno"></span></p>
+						</div>
+					</div>
+				<div class="right">
+					<div class="r1 b">
+						<p ng-bind="row.expressType"></p>
+					</div>
+					<div class="r2">
+						<p class="p1"></p>
+						<p class="p2"></p>
+						<p class="p3"></p>
+					</div>
+				</div>
+			</div>
+			<div class="m3 b">
+				<div class="left">
+					<p>目的地</p>
+				</div>
+				<div class="right">
+					<p ng-bind="row.destCode"></p>
+				</div>
+			</div>
+			<div class="m4 b">
+				<div class="left">
+					<p>收件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+						<p><span ng-bind="row.receiver.company"></span></p>
+					<p>
+					<span ng-bind="row.receiver.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m5 b">
+				<div class="left">
+					<p>寄件人</p>
+				</div>
+				<div class="right-1">
+					<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+					<p>
+					<span ng-bind="row.sender.address" ></span>
+					</p>
+				</div>
+				<div class="right-2">
+					<p class="p1"></p>
+					<p class="p2"></p>
+				</div>
+			</div>
+			<div class="m6 b cl">
+				<div class="left">
+					<div class="l1 b">
+						<ul>
+						<li>件数：<span ng-bind="row.packageInfo.parcelQuantity"></span></li>
+						<li>运费：<span></span></li>
+						</ul>
+						<ul>
+							<li>实际重量：<span ng-bind="row.packageInfo.weight"></span></li>
+							<li ng-if="row.payInfo.custId=='5101203392'">月结账号：<span>510***</span></li>
+							<li ng-if="row.payInfo.custId=='3113128913'">月结账号：<span>311***</span></li>
+						</ul>
+						<ul>
+							<li>计费重量：<span></span></li>
+							<li>付款方式：<span  ng-bind="row.payInfo.payTypeName"></span></li>
+						</ul>
+						<ul ng-if="row.payInfo.payTypeName=='第三方付' && row.payInfo.custId=='5101203392'" >
+							<li>付款网点：<span>510SL</span></li>
+						</ul>
+						<ul ng-if="row.payInfo.payTypeName=='第三方付' && row.payInfo.custId=='3113128913'" >
+							<li>付款网点：<span>311DN</span></li>
+						</ul>
+						<ul ng-if="row.serviceInfos!=''" ng-repeat="a in row.serviceInfos">
+							<li ng-repeat="b in a.key">{{b}}:<span ng-repeat="c in a.value">{{c}}</span></li>
+						</ul>
+						<p></p>
+					</div>
+					<div class="l2">
+						<div class="l2-a">
+							<p>托寄物</p>
+						</div>
+						<div class="l2-b">
+							<span ng-bind="row.packageInfo.name"></span>
+						</div>
+						<div class="l2-c">
+							<ul>
+								<li>收件员：</li>
+								<li>收件日期：</li>
+								<li>派件员：</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<p>签名：</p>
+					<p class="p2">月<span>日</span></p>
+				</div>
+			</div>
+			<div class="item b">
+				<div class="m7 b cl">
+					<div class="left">
+						<img class="img1" src="img/logo.jpg">
+						<img src="img/tel.png">
+					</div>
+					<div class="right">
+						<img style="margin: 8px auto 4px!important;  " src="/ebes/barcode?msg={{y}}&type=code128&fmt=svg&hrp=none&height=17.8&mw=0.54"/>
+						<p>子单号<span>{{y}}</span></p>
+					</div>
+				</div>
+				<div class="m8 b">
+					<div class="left">
+						<p>寄件人</p>
+					</div>
+					<div class="right">
+						<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+						<p>
+						<span ng-bind="row.sender.address" ></span>
+						</p>
+					</div>
+				</div>
+				<div class="m8 b">
+					<div class="left">
+						<p>收件人</p>
+					</div>
+					<div class="right">
+						<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+						<p>
+							<span ng-bind="row.receiver.address" ></span>
+						</p>
+					</div>
+				</div>
+				<div class="m10">
+					件数：<span ng-bind="row.packageInfo.parcelQuantity"></span>&nbsp;&nbsp;&nbsp;
+					寄托物数量：<span ng-bind="row.packageInfo.count"></span>&nbsp;&nbsp;&nbsp;
+					寄托物：<span ng-bind="row.packageInfo.name"></span>&nbsp;&nbsp;&nbsp;
+					付款方式：<span  ng-bind="row.payInfo.payTypeName"></span>&nbsp;&nbsp;&nbsp;
+					</br>
+					月结账号：<span ng-if="row.payInfo.custId=='5101203392'">510***</span><span ng-if="row.payInfo.custId=='3113128913'">311***</span>&nbsp;&nbsp;&nbsp;
+					备注：<span ng-bind=""></span>&nbsp;&nbsp;&nbsp;
+					费用合计：<span ng-bind=""></span>
+				</div>
+			</div>
+			<div class="item b">
+				<div class="m7 b cl">
+					<div class="left">
+						<img class="img1" src="img/logo.jpg">
+						<img src="img/tel.png">
+					</div>
+					<div class="right">
+						<img style="margin: 8px auto 4px!important;  " src="/ebes/barcode?msg={{y}}&type=code128&fmt=svg&hrp=none&height=17.8&mw=0.54"/>
+						<p>子单号<span>{{y}}</span></p>
+					</div>
+				</div>
+				<div class="m8 b">
+					<div class="left">
+						<p>寄件人</p>
+					</div>
+					<div class="right">
+						<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+						<p>
+						<span ng-bind="row.sender.address" ></span>
+						</p>
+					</div>
+				</div>
+				<div class="m8 b">
+					<div class="left">
+						<p>收件人</p>
+					</div>
+					<div class="right">
+						<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+						<p>
+							<span ng-bind="row.receiver.address" ></span>
+						</p>
+					</div>
+				</div>
+				<div class="m10">
+					件数：<span ng-bind="row.packageInfo.parcelQuantity"></span>&nbsp;&nbsp;&nbsp;
+					寄托物数量：<span ng-bind="row.packageInfo.count"></span>&nbsp;&nbsp;&nbsp;
+					寄托物：<span ng-bind="row.packageInfo.name"></span>&nbsp;&nbsp;&nbsp;
+					付款方式：<span  ng-bind="row.payInfo.payTypeName"></span>&nbsp;&nbsp;&nbsp;
+					</br>
+						月结账号：<span ng-if="row.payInfo.custId=='5101203392'">510***</span><span ng-if="row.payInfo.custId=='3113128913'">311***</span>&nbsp;&nbsp;&nbsp;
+					备注：<span ng-bind=""></span>&nbsp;&nbsp;&nbsp;
+					费用合计：<span ng-bind=""></span>
+				</div>
+			</div>
+		</div>
+		<div class="page"  style="margin-top: 23px;"ng-if="row.expressType=='顺丰特惠'">
+			<p class="e">E</p>
+			<div class="m2 b" style="border-top: 1px solid black;">
+				<div class="left">
+						<img style="margin: 2px auto 4px!important; padding-top: 3mm;" src="/ebes/barcode?msg={{y}}&type=code128&fmt=svg&hrp=none&height=19&mw=0.68"/>
+						<div>
+							<span>{{$index+2}}</span>/<span ng-bind="row.parcelQuantity"></span>
+							<p class="ten center" style="margin-top: -15px;">子单号&nbsp;&nbsp;&nbsp;<span >{{y}}</span></p>
+							<p class="ten center">母单号&nbsp;&nbsp;&nbsp;<span ng-bind="row.express.mailno"></span></p>
+						</div>
+					</div>
+				<div class="right">
+					<div class="r1 b">
+						<p ng-bind="row.expressType"></p>
+					</div>
+					<div class="r2">
+						<p class="p1"></p>
+						<p class="p2"></p>
+						<p class="p3"></p>
+					</div>	
+				</div>
+			</div>
+			<div class="m3 b">
+				<div class="left">
+					<p>目的地</p>
+				</div>
+				<div class="right">
+					<p ng-bind="row.destCode"></p>
+				</div>
+			</div>
+			<div class="m4 b">
+				<div class="left">
+					<p>收件人</p>
+				</div>
+				<div class="right">
+					<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+					<p>
+					<span ng-bind="row.receiver.address" ></span>
+					</p>
+				</div>
+			</div>
+			<div class="m5 b">
+				<div class="left">
+					<p>寄件人</p>
+				</div>
+				<div class="right-1">
+					<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+					<p>
+					<span ng-bind="row.sender.address" ></span>
+					</p>
+				</div>
+				<div class="right-2">
+					<p class="p1"></p>
+					<p class="p2"></p>
+				</div>
+			</div>
+			<div class="m6 b cl">
+				<div class="left">
+					<div class="l1 b">
+						<ul>
+						<li>件数：<span ng-bind="row.packageInfo.parcelQuantity"></span></li>
+						<li>运费：<span></span></li>
+						</ul>
+						<ul>
+							<li>实际重量：<span ng-bind="row.packageInfo.weight"></span></li>
+							<li ng-if="row.payInfo.custId=='5101203392'">月结账号：<span>510***</span></li>
+							<li ng-if="row.payInfo.custId=='3113128913'">月结账号：<span>311***</span></li>
+						</ul>
+						<ul>
+							<li>计费重量：<span></span></li>
+							<li>付款方式：<span  ng-bind="row.payInfo.payTypeName"></span></li>
+						</ul>
+						<ul ng-if="row.payInfo.payTypeName=='第三方付' && row.payInfo.custId=='5101203392'" >
+							<li>付款网点：<span>510SL</span></li>
+						</ul>
+						<ul ng-if="row.payInfo.payTypeName=='第三方付' && row.payInfo.custId=='3113128913'" >
+							<li>付款网点：<span>311DN</span></li>
+						</ul>
+						<ul ng-if="row.serviceInfos!=''" ng-repeat="a in row.serviceInfos">
+							<li ng-repeat="b in a.key">{{b}}:<span ng-repeat="c in a.value">{{c}}</span></li>
+						</ul>
+						<p></p>
+					</div>
+					<div class="l2">
+						<div class="l2-a">
+							<p>托寄物</p>
+						</div>
+						<div class="l2-b">
+							<span ng-bind="row.packageInfo.name"></span>
+						</div>
+						<div class="l2-c">
+							<ul>
+								<li>收件员：</li>
+								<li>收件日期：</li>
+								<li>派件员：</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<p>签名：</p>
+					<p class="p2">月<span>日</span></p>
+				</div>
+			</div>
+			<div class="item b">
+				<div class="m7 b cl">
+					<div class="left">
+						<img class="img1" src="img/logo.jpg">
+						<img src="img/tel.png">
+					</div>
+					<div class="right">
+						<img style="margin: 8px auto 4px!important;  " src="/ebes/barcode?msg={{y}}&type=code128&fmt=svg&hrp=none&height=17.8&mw=0.54"/>
+						<p>子单号<span>{{y}}</span></p>
+					</div>
+				</div>
+				<div class="m8 b">
+					<div class="left">
+						<p>寄件人</p>
+					</div>
+					<div class="right">
+						<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+						<p>
+						<span ng-bind="row.sender.address" ></span>
+						</p>
+					</div>
+				</div>
+				<div class="m8 b">
+					<div class="left">
+						<p>收件人</p>
+					</div>
+					<div class="right">
+						<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+						<p>
+							<span ng-bind="row.receiver.address" ></span>
+						</p>
+					</div>
+				</div>
+				<div class="m10">
+					件数：<span ng-bind="row.packageInfo.parcelQuantity"></span>&nbsp;&nbsp;&nbsp;
+					寄托物数量：<span ng-bind="row.packageInfo.count"></span>&nbsp;&nbsp;&nbsp;
+					寄托物：<span ng-bind="row.packageInfo.name"></span>&nbsp;&nbsp;&nbsp;
+					付款方式：<span  ng-bind="row.payInfo.payTypeName"></span>&nbsp;&nbsp;&nbsp;
+						</br>
+						月结账号：<span ng-if="row.payInfo.custId=='5101203392'">510***</span><span ng-if="row.payInfo.custId=='3113128913'">311***</span>&nbsp;&nbsp;&nbsp;
+					备注：<span ng-bind=""></span>&nbsp;&nbsp;&nbsp;
+					费用合计：<span ng-bind=""></span>
+				</div>
+			</div>
+			<div class="item b">
+				<div class="m7 b cl">
+					<div class="left">
+						<img class="img1" src="img/logo.jpg">
+						<img src="img/tel.png">
+					</div>
+					<div class="right">
+						<img style="margin: 8px auto 4px!important;  " src="/ebes/barcode?msg={{y}}&type=code128&fmt=svg&hrp=none&height=17.8&mw=0.54"/>
+						<p>子单号<span>{{y}}</span></p>
+					</div>
+				</div>
+				<div class="m8 b">
+					<div class="left">
+						<p>寄件人</p>
+					</div>
+					<div class="right">
+						<p><span ng-bind="row.sender.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.sender.mobile" ></span></p>
+						<p>
+						<span ng-bind="row.sender.address" ></span>
+						</p>
+					</div>
+				</div>
+				<div class="m8 b">
+					<div class="left">
+						<p>收件人</p>
+					</div>
+					<div class="right">
+						<p><span ng-bind="row.receiver.contact" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.tel" ></span>&nbsp;&nbsp;&nbsp;<span ng-bind="row.receiver.mobile" ></span></p>
+						<p>
+							<span ng-bind="row.receiver.address" ></span>
+						</p>
+					</div>
+				</div>
+				<div class="m10">
+					件数：<span ng-bind="row.packageInfo.parcelQuantity"></span>&nbsp;&nbsp;&nbsp;
+					寄托物数量：<span ng-bind="row.packageInfo.count"></span>&nbsp;&nbsp;&nbsp;
+					寄托物：<span ng-bind="row.packageInfo.name"></span>&nbsp;&nbsp;&nbsp;
+					付款方式：<span  ng-bind="row.payInfo.payTypeName"></span>&nbsp;&nbsp;&nbsp;
+					</br>
+					月结账号：<span ng-if="row.payInfo.custId=='5101203392'">510***</span><span ng-if="row.payInfo.custId=='3113128913'">311***</span>&nbsp;&nbsp;&nbsp;
+					备注：<span ng-bind=""></span>&nbsp;&nbsp;&nbsp;
+					费用合计：<span ng-bind=""></span>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	
+	
+	
+<script type="text/javascript">
+
+var url=window.location.href;
+var loc = url.substring(url.lastIndexOf('=')+1, url.length);	
+var app = angular.module('testApp', []);
+app.controller('testCtrl', function ($scope, $http) {    	
+    $http.get("/ebes/order/detail?mailno=" + loc,{timeout:8000} ).success(function (response) {
+    	$scope.row = response.detail;    		
+    }).error(function(data,status){ 
+
+        if(status=='timeout'){
+       	 window.location.href="login.jsp"
+       }
+       
+   });
+})
+</script>
+</body>
+</html>
