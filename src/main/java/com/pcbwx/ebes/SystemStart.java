@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -24,7 +26,8 @@ import com.pcbwx.ebes.interceptor.CheckLoginFilter;
 @SpringBootApplication
 @MapperScan(basePackages = "com.pcbwx.ebes.dao")
 public class SystemStart extends SpringBootServletInitializer {
-
+	private static Logger logger = LoggerFactory.getLogger(SystemStart.class);
+	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SystemStart.class);
@@ -42,6 +45,7 @@ public class SystemStart extends SpringBootServletInitializer {
 		SpringApplication springApplication = new SpringApplication(SystemStart.class);
 		springApplication.setDefaultProperties(properties);
 		springApplication.run(args);
+		logger.info("系统已经启动");
 	}
 	
 	

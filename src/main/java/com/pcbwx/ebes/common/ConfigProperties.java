@@ -7,14 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.logging.log4j.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.pcbwx.ebes.enums.ConfigEnum;
 import com.pcbwx.ebes.exception.BusinessException;
 import com.pcbwx.ebes.exception.ExceptionType;
-import com.pcbwx.ebes.util.LogUtil;
 
 /**
  * 初始化静态变量
@@ -171,7 +169,7 @@ public class ConfigProperties {
 	public static Integer getPropertyInt(ConfigEnum constant){
 		String value = props.getProperty(constant.getCode());
 		if (value == null) {
-			LogUtil.logger(LogUtil.printLine(), logger, "找不到该配置:" + constant.getCode(), Level.ERROR);
+			logger.error("找不到该配置:" + constant.getCode());
 			return null;
 		}
 		return Integer.valueOf(value);

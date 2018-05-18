@@ -29,7 +29,7 @@ public class QuartzJob {
 			return;
 		}
 		
-		
+		logger.error("测试error级别日志");
 		reloadFlag.decrementAndGet();		
 		logger.info("reloadCache的任务调度结束！！！");
 	}
