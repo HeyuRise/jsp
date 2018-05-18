@@ -22,24 +22,20 @@ import org.springframework.core.annotation.Order;
 import com.pcbwx.ebes.common.ConfigProperties;
 import com.pcbwx.ebes.interceptor.CheckLoginFilter;
 
-
 @SpringBootApplication
 @MapperScan(basePackages = "com.pcbwx.ebes.dao")
 public class SystemStart extends SpringBootServletInitializer {
+
 	private static Logger logger = LoggerFactory.getLogger(SystemStart.class);
-	
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(SystemStart.class);
-	}
+	// springBoot配置文件名字
+	private static final String FILENAME = "spring.properties";
 
 	public static void main(String[] args) throws Exception {
-		// 加载config配置文件
+		// 加载非框架配置文件
 		ConfigProperties.load();
 		// 指定配置文件
 		Properties properties = new Properties();
-		String fileName = "application.properties";
-		String configFile = System.getenv("CONFIG_SPACE") + "/" + ConfigProperties.getMySystemCode() + "/" + fileName;
+		String configFile = System.getenv("CONFIG_SPACE") + "/" + ConfigProperties.getMySystemCode() + "/" + FILENAME;
 		InputStream in = new FileInputStream(new File(configFile));
 		properties.load(in);
 		SpringApplication springApplication = new SpringApplication(SystemStart.class);
@@ -47,19 +43,23 @@ public class SystemStart extends SpringBootServletInitializer {
 		springApplication.run(args);
 		logger.info("系统已经启动");
 	}
-	
-	
-	@Bean  
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(SystemStart.class);
+	}
+
+	@Bean
 	@Order(Integer.MAX_VALUE) // 指定过滤器顺序
-    public FilterRegistrationBean<CheckLoginFilter>  filterRegistrationBean() {  
-		FilterRegistrationBean<CheckLoginFilter> registrationBean = new FilterRegistrationBean<CheckLoginFilter>();  
-        CheckLoginFilter loginFilter = new CheckLoginFilter();  
-        registrationBean.setFilter(loginFilter);  
-        List<String> urlPatterns = new ArrayList<String>();  
-        urlPatterns.add("/login");
-        urlPatterns.add("*.html");
-        registrationBean.setUrlPatterns(urlPatterns);  
-        return registrationBean;  
-    }  
+	public FilterRegistrationBean<CheckLoginFilter> filterRegistrationBean() {
+		FilterRegistrationBean<CheckLoginFilter> registrationBean = new FilterRegistrationBean<CheckLoginFilter>();
+		CheckLoginFilter loginFilter = new CheckLoginFilter();
+		registrationBean.setFilter(loginFilter);
+		List<String> urlPatterns = new ArrayList<String>();
+		urlPatterns.add("/login");
+		urlPatterns.add("*.html");
+		registrationBean.setUrlPatterns(urlPatterns);
+		return registrationBean;
+	}
 
 }
