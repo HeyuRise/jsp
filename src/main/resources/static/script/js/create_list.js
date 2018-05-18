@@ -787,14 +787,14 @@ function loadtiaoma(expressInfo){
 	//付款方式，月结卡号
 	var sendaddress=$("#sendAddress").val()
 	if(sendaddress.indexOf("华东大厦")!=-1){
-		$("#custId").val("5101203392")
+		$("#custId").val("9999999999")
 	    $("input[type='radio'][name='payMethod'][value='1']").attr("checked",true);  
 	}else if(sendaddress.indexOf("石柏南大街181号鹿岛V谷科技工业园32号楼3层")!=-1){
-		$("#custId").val("3113128913")
+		$("#custId").val("9999999999")
 	    $("input[type='radio'][name='payMethod'][value='1']").attr("checked",true);  
 	}
 	else{ 
-		$("#custId").val("5101203392")
+		$("#custId").val("9999999999")
 		$("input[type='radio'][name='payMethod'][value='3']").attr("checked",true); 
 	}
 
@@ -806,7 +806,7 @@ function loadtiaoma(expressInfo){
 //	if($(obj).prop("checked")){
 //		var value=$(obj).attr("value")
 //		if(value=="1"){
-//			$("#custId").val("5101203392")
+//			$("#custId").val("9999999999")
 //			$("#custId").attr("readonly",false)
 //		}else{
 //			$("#custId").val("")
