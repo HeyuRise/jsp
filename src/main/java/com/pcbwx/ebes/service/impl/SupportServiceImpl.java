@@ -46,18 +46,13 @@ public class SupportServiceImpl implements SupportService {
 
 	private static Logger logger = LoggerFactory.getLogger(SupportServiceImpl.class);
 
-//	@Autowired
-//	private BusTransactionSession busTransactionSession;
-
 	@Autowired
 	private CacheService cacheService;
-	
-	@Autowired
-	private DictionaryMapper dictionaryMapper;
-
 	@Autowired
 	private ConfigService configService;
-	
+
+	@Autowired
+	private DictionaryMapper dictionaryMapper;
 	@Autowired
 	private ConfigMapper configMapper;
 	@Autowired
