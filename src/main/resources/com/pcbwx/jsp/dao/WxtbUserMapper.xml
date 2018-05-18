@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.jsp.dao.WxtbUserMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.jsp.model.WxtbUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="hashed_password" property="hashedPassword" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+    <result column="account_non_expired" property="accountNonExpired" jdbcType="INTEGER" />
+    <result column="credentials_non_expired" property="credentialsNonExpired" jdbcType="INTEGER" />
+    <result column="account_non_locked" property="accountNonLocked" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account, hashed_password, username, enable, account_non_expired, credentials_non_expired, 
+    account_non_locked, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wxtb_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wxtb_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.jsp.model.WxtbUser" >
+    insert into wxtb_user (id, account, hashed_password, 
+      username, enable, account_non_expired, 
+      credentials_non_expired, account_non_locked, 
+      create_time, update_time)
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{hashedPassword,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, #{accountNonExpired,jdbcType=INTEGER}, 
+      #{credentialsNonExpired,jdbcType=INTEGER}, #{accountNonLocked,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.jsp.model.WxtbUser" >
+    insert into wxtb_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="hashedPassword != null" >
+        hashed_password,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="accountNonExpired != null" >
+        account_non_expired,
+      </if>
+      <if test="credentialsNonExpired != null" >
+        credentials_non_expired,
+      </if>
+      <if test="accountNonLocked != null" >
+        account_non_locked,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="hashedPassword != null" >
+        #{hashedPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="accountNonExpired != null" >
+        #{accountNonExpired,jdbcType=INTEGER},
+      </if>
+      <if test="credentialsNonExpired != null" >
+        #{credentialsNonExpired,jdbcType=INTEGER},
+      </if>
+      <if test="accountNonLocked != null" >
+        #{accountNonLocked,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.jsp.model.WxtbUser" >
+    update wxtb_user
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="hashedPassword != null" >
+        hashed_password = #{hashedPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="accountNonExpired != null" >
+        account_non_expired = #{accountNonExpired,jdbcType=INTEGER},
+      </if>
+      <if test="credentialsNonExpired != null" >
+        credentials_non_expired = #{credentialsNonExpired,jdbcType=INTEGER},
+      </if>
+      <if test="accountNonLocked != null" >
+        account_non_locked = #{accountNonLocked,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.jsp.model.WxtbUser" >
+    update wxtb_user
+    set account = #{account,jdbcType=VARCHAR},
+      hashed_password = #{hashedPassword,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=INTEGER},
+      account_non_expired = #{accountNonExpired,jdbcType=INTEGER},
+      credentials_non_expired = #{credentialsNonExpired,jdbcType=INTEGER},
+      account_non_locked = #{accountNonLocked,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from wxtb_user
+    where enable = 1
+  </select>
+  <select id="selectByAccount" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from wxtb_user
+    where account = #{account,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByAccount" parameterType="map">
+  	delete from wxtb_user
+    where account = #{account,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="map">
+  	select 
+    <include refid="Base_Column_List" />
+    from wxtb_user
+    where account != 'admin0000'
+    <if test="account != null">
+    	and account like '%${account}%'
+    </if>
+    <if test="name != null">
+    	and username like '%${name}%'
+    </if>
+    <if test="enable != null">
+    	and enable = #{enable,jdbcType=INTEGER}
+    </if>
+    <if test="accounts != null">
+    	and account in
+	    <foreach collection="accounts" item="item" index="index" open="(" separator="," close=")">  
+		    #{item}  
+		</foreach>
+    </if>
+    order by create_time asc
+  </select>
+</mapper>

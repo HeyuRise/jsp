@@ -9,7 +9,7 @@
 		<Logger name="org.springframework" level="INFO" additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
-		<Logger name="com.pcbwx.ebes.dao" level="DEBUG" additivity="false">
+		<Logger name="com.pcbwx.jsp.dao" level="DEBUG" additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
 		<Root level="info">
