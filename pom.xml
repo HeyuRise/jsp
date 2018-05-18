@@ -7,14 +7,12 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.2.RELEASE</version>
 	</parent>
+	<groupId>com.pcbwx</groupId>
 	<artifactId>jsp</artifactId>
 	<packaging>war</packaging>
 	<name>jsp</name>
-
-	<properties>
-		<log4j.version>2.10.0</log4j.version>
-	</properties>
-
+	<version>1.0.0.1</version>
+	
 	<dependencies>
 		<!-- web依赖 -->
 		<dependency>
@@ -133,6 +131,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<groupId>com.pcbwx</groupId>
-	<version>1.0.0.1</version>
 </project>
