@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>面单电子化系统</title>	
+    <link rel="stylesheet" type="text/css" href="../script/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
+	<link media="(max-width:1250px)" href="../script/css/example.css" rel="stylesheet">
+	<link rel="stylesheet" media="(min-width:1250px) and (max-width:1400px)" href="../script/css/simplify.min.css" />
+	<link media="(min-width:1400px)" href="../script/css/simplify.min.css" rel="stylesheet">
+	<link href="../script/css/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../script/css/sweetalert.css">
+    <script src="../script/js/jquery-2.1.1.min.js"></script>
+    <script src="../script/js/base.js"></script>
+    <script src="../script/js/jquery.validate.js"></script> 
+    <script src="../script/js/bootstrap.js"></script>
+	<script src="../script/js/sweetalert.min.js"></script>
+	<script src='../script/js/jquery.slimscroll.min.js'></script>
+	<script src="../script/js/view-Express.js"></script>
+	<style type="text/css">
+	.rote_left{
+		float: left;
+		width: 30%;
+	}
+	.rote_right{
+		float: right;
+		width: 68%;
+	}
+	.control-span{
+		width: 200px;
+		display: inline-block;
+	}
+	</style>
+</head>
+<body class="overflow-hidden">
+	<div class="wrapper preload">
+		<header class="top-nav" id="header"></header>
+	    <aside class="sidebar-menu fixed">
+		    <div class="sidebar-inner scrollable-sidebar">
+				<div class="main-menu">
+					<ul class="accordion" id="navi">
+						<li class="menu-header">菜单</li>
+			        </ul>
+			    </div>
+			</div>
+	    </aside>
+	    <footer class="footer" id="footer"></footer>
+    	
+    	<div class="main-container">
+			<div class="padding-md">
+				<h3 class="header-text m-top-lg">查看快递详情</h3>
+				<div class="smart-widget" style="padding: 20px;background-color: #f5f5f5;">
+					<div class="rote_left">
+						<div class="biaoti">
+							<p>物流详情</p>
+		                </div>
+						<label class="control-label">选择运单号</label>
+						<select class="select-eight"style="width: 171px;" id="mail" onchange="tab()">
+						</select>
+						<div class="track-list" >
+							<ul id="rote">
+							</ul>
+						</div>
+					</div>
+					<div class="rote_right">
+						<div class="biaoti">
+							<p>快递单详情</p>
+		                </div>
+		               <div style="margin-bottom: 10px;">
+		                	<label class="control-label">运单号:</label>
+		                	<span class="control-span" id="mailno"></span>
+		                	<label class="control-label">子运单号:</label>
+		                	<span id="mailnoChild"></span>
+		                </div>
+		                <div style="margin-bottom: 10px;">
+		                	<label class="control-label">状态:</label>
+		                	<span class="control-span" id="status"></span>
+		                	<label class="control-label">收件人:</label>
+		                	<span class="control-span" id="receiver"></span>
+		                	<label class="control-label" style="display: none;">收件时间:</label>
+		                	<span  id="receiveDate" style="display: none;"></span>
+		                </div>
+		                <div class="biaoti">
+							<p>寄件方信息</p>
+		                </div>
+		                <div style="margin-bottom: 10px;">
+		                	<label class="control-label">寄件公司:</label>
+		                	<span class="control-span" id="company"></span>
+		                	<label class="control-label">联系人:</label>
+		                	<span  id="contact"></span>
+		                </div>
+		                 <div style="margin-bottom: 10px;">
+		                	<label class="control-label">联系电话:</label>
+		                	<span class="control-span" id="tel"></span>
+		                	<label class="control-label">手机:</label>
+		                	<span  id="mobile"></span>
+		                </div>
+		                 <div style="margin-bottom: 10px;">
+		                	<label class="control-label">地址:</label>
+		                	<span  id="address"></span>
+		                </div>
+		                 <div class="biaoti">
+							<p>收件方信息</p>
+		                </div>
+		                <div style="margin-bottom: 10px;">
+		                	<label class="control-label">收件公司:</label>
+		                	<span class="control-span" id="receivercompany"></span>
+		                	<label class="control-label">联系人:</label>
+		                	<span id="receivercontact"></span>
+		                </div>
+		                 <div style="margin-bottom: 10px;">
+		                	<label class="control-label">联系电话:</label>
+		                	<span class="control-span" id="receivertel"></span>
+		                	<label class="control-label">手机:</label>
+		                	<span  id="receivermobile"></span>
+		                </div>
+		                 <div style="margin-bottom: 10px;">
+		                	<label class="control-label">地址:</label>
+		                	<span class="" id="receiveraddress"></span>
+		                </div>
+		                <div class="biaoti">
+							<p>业务类型信息</p>
+		                </div>
+		                <div style="margin-bottom: 10px;">
+		                	<label class="control-label" style="display: none;">月结卡号：</label>
+		                	<span class="control-span" id="custId" style="display: none;"></span>
+		                	<label class="control-label">付款方式:</label>
+		                	<span class="control-span" id="payTypeName"></span>
+		                </div>
+		                <div class="biaoti">
+							<p>付款方式</p>
+		                </div>
+		                <div style="margin-bottom: 10px;">
+		                	<label class="control-label">业务类型：</label>
+		                	<span class="control-span" id="expressType"></span>
+		                </div>
+		                <div class="biaoti">
+							<p>包裹信息</p>
+		                </div>
+		                <div style="margin-bottom: 10px;">
+		                	<label class="control-label">订单号：</label>
+		                 	<span  id="orderId"></span>
+		                </div>
+		                <div style="margin-bottom: 10px;">
+		                	<label class="control-label">实际重量：</label>
+		                	<span class="control-span" id="weight"></span>
+		                	<label class="control-label">包裹数量：</label>
+		                	<span class="control-span"  id="parcelQuantity"></span>
+		                	<label class="control-label">计费重量：</label>
+		                	<span id="payWeight"></span>
+		                </div>
+		                 <div style="margin-bottom: 10px;">
+		                	<label class="control-label">包裹内容：</label>
+		                	<span class="control-span" id="name"></span>
+		                	<label class="control-label">寄托物数量：</label>
+		                	<span class="control-span"  id="count"></span>
+		                	<label class="control-label">运费：</label>
+		                	<span class="control-span"  id="money"></span>
+		                </div>
+		                <div id="service">
+			                <div class="biaoti">
+								<p>增值服务</p>
+			                </div>
+			                <div id="service_content"></div>
+		                </div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 模态框（Modal修改密码-->
+	<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						修改密码
+					</h4>
+				</div>
+				<form id="Form" autocomplete="off">
+					<div class="modal-body">
+						<div class="form-group" style="width: 80%;margin-left: auto;margin-right: auto">
+							<div style="margin-top:15px;">
+								<label class="control-label ">用户名：</label>
+								<span id="name-acccount"></span>
+							</div>
+							<div style="margin-top:15px;">
+								<label class="control-label ">旧密码：</label>
+								<input type="text" class="input-eight"  name="oldpass" id="oldpass">
+							</div>
+							<div style="margin-top:15px;">
+								<label class="control-label ">新密码：</label>
+								<input type="text" class="input-eight"  name="newpass"  id="newpass">
+							</div>
+							<div style="margin-top:15px;">
+								<label class="control-label ">新密码：</label>
+								<input type="text" class="input-eight"  name="newpass2"  id="newpass2">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button  type="submit" class="btn btn-primary" >提交</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
