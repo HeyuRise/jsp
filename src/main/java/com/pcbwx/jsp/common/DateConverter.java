@@ -1,4 +1,4 @@
-package com.pcbwx.jsp.converter;
+package com.pcbwx.jsp.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
