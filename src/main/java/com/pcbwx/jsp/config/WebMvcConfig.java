@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
  */
 @Configuration
 @EnableWebMvc
-public class WebMvcConfig extends WebMvcAutoConfiguration {
+public class WebMvcConfig extends WebMvcAutoConfiguration{
 
 	// 把返回Json中的null换为""
 	@Bean
@@ -31,15 +31,17 @@ public class WebMvcConfig extends WebMvcAutoConfiguration {
 	@ConditionalOnMissingBean(ObjectMapper.class)
 	public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
 		ObjectMapper objectMapper = builder.createXmlMapper(false).build();
-		objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
-			@Override
-			public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
-					throws IOException, JsonProcessingException {
-				jsonGenerator.writeString("");
-			}
-		});
+		objectMapper.getSerializerProvider().setNullValueSerializer(new NullSerializer());
 		return objectMapper;
 	}
 	
+	// null的JSON序列  
+    private class NullSerializer extends JsonSerializer<Object> {
+		@Override
+		public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+				throws IOException, JsonProcessingException {
+			jsonGenerator.writeString("");
+		}
+    }
 
 }
