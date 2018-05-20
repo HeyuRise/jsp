@@ -16,7 +16,12 @@ import com.pcbwx.jsp.security.MySecurityFilter;
 import com.pcbwx.jsp.security.MySecurityMetadataSource;
 import com.pcbwx.jsp.security.MyUserDetailServiceImpl;
 import com.pcbwx.jsp.util.MD5Util;
-
+/**
+ * springSecurity配置类
+ * 
+ * @author 孙贺宇
+ *
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

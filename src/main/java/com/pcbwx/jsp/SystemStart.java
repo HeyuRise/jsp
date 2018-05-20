@@ -4,8 +4,6 @@ package com.pcbwx.jsp;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -14,14 +12,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.annotation.Order;
 
 import com.pcbwx.jsp.common.ConfigProperties;
-import com.pcbwx.jsp.interceptor.CheckLoginFilter;
-
+/**
+ * 程序启动类
+ * 
+ * @author 孙贺宇
+ *
+ */
 @SpringBootApplication
 @MapperScan(basePackages = "com.pcbwx.jsp.dao") // mybatis包路径
 public class SystemStart extends SpringBootServletInitializer {
@@ -49,19 +48,6 @@ public class SystemStart extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SystemStart.class);
-	}
-
-	@Bean
-	@Order(Integer.MAX_VALUE) // 指定过滤器顺序
-	public FilterRegistrationBean<CheckLoginFilter> filterRegistrationBean() {
-		FilterRegistrationBean<CheckLoginFilter> registrationBean = new FilterRegistrationBean<CheckLoginFilter>();
-		CheckLoginFilter loginFilter = new CheckLoginFilter();
-		registrationBean.setFilter(loginFilter);
-		List<String> urlPatterns = new ArrayList<String>();
-		urlPatterns.add("/login");
-		urlPatterns.add("*.html");
-		registrationBean.setUrlPatterns(urlPatterns);
-		return registrationBean;
 	}
 
 }

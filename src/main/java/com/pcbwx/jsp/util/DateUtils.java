@@ -7,6 +7,12 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 日期工具类
+ * 
+ * @author 孙贺宇
+ *
+ */
 public class DateUtils {
 	static Logger logger = LoggerFactory.getLogger(DateUtils.class);
 

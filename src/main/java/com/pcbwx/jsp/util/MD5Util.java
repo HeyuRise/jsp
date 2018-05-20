@@ -2,6 +2,12 @@ package com.pcbwx.jsp.util;
 
 import java.security.MessageDigest;
 
+/**
+ * MD5加密工具类
+ * 
+ * @author 孙贺宇
+ *
+ */
 public class MD5Util {
 	
     public static String encode(String password) {

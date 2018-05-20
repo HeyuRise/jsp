@@ -30,8 +30,9 @@ import org.apache.poi.xssf.streaming.SXSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 
 /**
- * 文件处理工具类
- * @author USER-P5KPL_SE
+ * Excel处理工具类
+ * 
+ * @author 孙贺宇
  *
  */
 public class ExcelUtil {

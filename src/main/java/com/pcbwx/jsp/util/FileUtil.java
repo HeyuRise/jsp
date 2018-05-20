@@ -9,11 +9,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-
 /**
  * @author 王海龙
  * @date 2013-2-22
@@ -152,23 +147,6 @@ public class FileUtil {
 	public static boolean delete(String filename) {
 		File targetFile = new File(filename); 
 		return targetFile.delete();	
-	}
-	
-	/**
-	 * 设置Excel列表头
-	 * @param sheet 
-	 * @param columnName 列名的数组
-	 * @param cellStyle 单元格样式
-	 * @param rowNum 表头所在的行号(0是第一行)
-	 */
-	public static void setColumnTitle(Sheet sheet, String[] columnName, CellStyle cellStyle, int rowNum) {
-		Row row = sheet.createRow(rowNum);
-		Cell cell;
-		for (int i = 0; i < columnName.length; i++) {
-			cell = row.createCell(i);
-			cell.setCellValue(columnName[i]);
-			cell.setCellStyle(cellStyle);
-		}
 	}
 	
 	public static void main(String[] args) {
