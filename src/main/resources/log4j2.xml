@@ -10,7 +10,7 @@
 			fileName="${LOG_HOME}/${INFO_FILE_NAME}.log" 
 			filePattern="${LOG_HOME}/${INFO_FILE_NAME}-%d{yyyy-MM-dd}.log">
 			<PatternLayout
-				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n" />
+				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} [%L] - %msg%n" />
 			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
 			<Policies>
 				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
@@ -21,7 +21,7 @@
 			fileName="${LOG_HOME}/${ERROR_FILE_NAME}.log" 
 			filePattern="${LOG_HOME}/${ERROR_FILE_NAME}-%d{yyyy-MM-dd}.log">
 			<PatternLayout
-				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n" />
+				pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} [%L] - %msg%n" />
 			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
 			<Policies>
 				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
@@ -31,12 +31,12 @@
 		<!-- 配置异步打日志 -->
 		<Async name="ASYNC">
 			<AppenderRef ref="file-info" />
-			<AppenderRef ref="file-error" />
 		</Async>
 	</Appenders>
 	<Loggers>
 		<Root level="info">
 			<AppenderRef ref="ASYNC" />
+			<AppenderRef ref="file-error" />
 		</Root>
 	</Loggers>
 </Configuration> 
