@@ -1,35 +1,18 @@
 package com.pcbwx.jsp.control;
 
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.servlet.http.HttpServletRequest;
+import com.pcbwx.jsp.bean.MyResponse;
 
-import com.pcbwx.jsp.enums.ErrorCodeEnum;
-
+/**
+ * controller基类
+ * @author 孙贺宇
+ * @version 1.0
+ *
+ */
 public class BaseController {
 
-	protected static Map<String, Object> expResult;
-	protected static final String MSG = "msg";
-	protected static final String STATE = "state";
+	@Autowired
+	protected MyResponse<Object> response;
 	
-	public String getBasePath(HttpServletRequest request) {
-		String path = request.getContextPath(); 
-		String basePath = request.getScheme() + "://"
-				+ request.getServerName() + ":" + request.getServerPort()
-				+ path;
-		if (!basePath.endsWith("/")) {
-			basePath = basePath + "/";
-		}
-		return basePath;
-	}
-	protected Map<String, Object> setResultInfo(Map<String, Object> resp, ErrorCodeEnum errorCode){
-		resp.put("result", errorCode.getCode());
-		resp.put("resultInfo", errorCode.getDescr());
-		return resp;
-	}
-	protected Map<String, Object> setResultInfo(Map<String, Object> resp, ErrorCodeEnum errorCode, String errorDesc){
-		resp.put("result", errorCode.getCode());
-		resp.put("resultInfo", errorDesc);
-		return resp;
-	}
 }

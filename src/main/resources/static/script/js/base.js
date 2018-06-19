@@ -5,8 +5,8 @@ $(function(){
 	    url: "/jsp/auth/userDetail",  
 	    contentType: 'application/json', 
 	    success: function (data) {  
-			var menu = data.menu;
-			var account = data.account;
+			var menu = data.data.menu;
+			var account = data.data.account;
 			loadmenu(menu,account);
 		}
 	})  

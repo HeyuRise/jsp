@@ -1,11 +1,14 @@
 package heyu;
 
-import java.util.Date;
+import com.pcbwx.jsp.util.RedisClient;
 
 public class HeyuTest {
 	
 	public static void main(String[] args) {
-		System.out.println(new Date().getTime());
+		RedisClient redisClient = new RedisClient();
+		
+		redisClient.show();
+		System.out.println("========================================");
 	}
 
 }

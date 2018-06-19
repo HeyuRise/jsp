@@ -17,21 +17,20 @@ import com.pcbwx.jsp.exception.ExceptionType;
 
 /**
  * 初始化静态变量
+ * 
  * @author 孙贺宇
  *
  */
 public class ConfigProperties {
-	
-	private static Logger logger = LoggerFactory.getLogger(ConfigProperties.class);
-	
-	private static Integer debug;
-	private static String mainUrl;
 
-	public static final Properties props = new Properties();
+	private static Logger logger = LoggerFactory.getLogger(ConfigProperties.class);
+
+	private static final String FILENAME = "config.properties";
 	
-	public static void load() throws IOException{
-		String fileName = "config.properties";
-		String configFile = System.getenv("CONFIG_SPACE") + "/" + SystemStart.MYSYSTEMCODE + "/" + fileName;
+	public static final Properties props = new Properties();
+
+	static {
+		String configFile = System.getenv("CONFIG_SPACE") + "/" + SystemStart.MYSYSTEMCODE + "/" + FILENAME;
 		InputStream in = null;
 		try {
 			in = new FileInputStream(new File(configFile));
@@ -42,7 +41,7 @@ public class ConfigProperties {
 			try {
 				props.load(in);
 			} catch (IOException e) {
-				throw new BusinessException(ExceptionType.EXCEPTION_400, "未找到config.properties文件");
+				throw new BusinessException(ExceptionType.EXCEPTION_400, "未找到" + FILENAME + "文件");
 			} finally {
 				if (in != null) {
 					try {
@@ -52,41 +51,27 @@ public class ConfigProperties {
 				}
 			}
 		}
-		debug = ConfigProperties.getPropertyInt(ConfigEnum.DEBUG_WITHOUT_LOGIN);
-		mainUrl = ConfigProperties.getProperty(ConfigEnum.SERVICE_MAIN_URL);
 	}
-	/**
-	 * 获取静态变量参数
-	 * @param constant
-	 * @return
-	 */
-	public static Integer getDebug() {
-		return debug;
-	}
-	public static String getMainUrl() {
-		return mainUrl;
-	}
-	/**
-	 * 获取静态变量参数
-	 * @param constant
-	 * @return
-	 */
-	public static String getProperty(ConfigEnum config){
-		return props.getProperty(config.getCode());
-	}
-	/**
-	 * 获取静态变量参数
-	 * @param constant
-	 * @return
-	 */
-	public static String getProperty(ConfigEnum config, String defValue){
+	
+	public static String getProperty(ConfigEnum config) {
 		String value = props.getProperty(config.getCode());
 		if (value == null) {
+			logger.error("找不到该配置:" + config.getCode());
+			return value;
+		}
+		return value;
+	}
+	
+	public static String getProperty(ConfigEnum config, String defValue) {
+		String value = props.getProperty(config.getCode());
+		if (value == null) {
+			logger.error("找不到该配置:" + config.getCode());
 			return defValue;
 		}
 		return value;
 	}
-	public static Integer getPropertyInt(ConfigEnum constant){
+
+	public static Integer getPropertyInt(ConfigEnum constant) {
 		String value = props.getProperty(constant.getCode());
 		if (value == null) {
 			logger.error("找不到该配置:" + constant.getCode());
@@ -94,9 +79,11 @@ public class ConfigProperties {
 		}
 		return Integer.valueOf(value);
 	}
-	public static Integer getPropertyInt(ConfigEnum constant, Integer defValue){
+
+	public static Integer getPropertyInt(ConfigEnum constant, Integer defValue) {
 		String value = props.getProperty(constant.getCode());
 		if (value == null) {
+			logger.error("找不到该配置:" + constant.getCode());
 			return defValue;
 		}
 		return Integer.valueOf(value);

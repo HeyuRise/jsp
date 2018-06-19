@@ -13,8 +13,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-
-import com.pcbwx.jsp.common.ConfigProperties;
 /**
  * 程序启动类
  * 
@@ -32,8 +30,6 @@ public class SystemStart extends SpringBootServletInitializer {
 	public final static String MYSYSTEMCODE = "jsp";
 
 	public static void main(String[] args) throws Exception {
-		// 加载非框架配置文件
-		ConfigProperties.load();
 		// 指定配置文件
 		Properties properties = new Properties();
 		String configFile = System.getenv("CONFIG_SPACE") + "/" + MYSYSTEMCODE + "/" + FILENAME;

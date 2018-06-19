@@ -16,29 +16,28 @@
 
 package com.pcbwx.jsp;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pcbwx.jsp.bean.MyResponse;
+import com.pcbwx.jsp.common.ConfigProperties;
 import com.pcbwx.jsp.dao.WxtbUserMapper;
+import com.pcbwx.jsp.enums.ConfigEnum;
 import com.pcbwx.jsp.model.WxtbUser;
-import com.pcbwx.jsp.util.DateTimeUtil;
 
 @Controller
 public class WelcomeController {
 	
 	private Logger logger = LoggerFactory.getLogger(WelcomeController.class);
+	
+	@Autowired
+	private MyResponse<Object> response;
 	
 	@Autowired
 	public WxtbUserMapper wxtbUserMapper;
@@ -54,16 +53,15 @@ public class WelcomeController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	@GetMapping("/test")
 	@ResponseBody
-	public Map<String, Object> test(@RequestParam("date") Date date){
-		logger.info(DateTimeUtil.date2dateStr(date));
-		Map<String, Object> response = new HashMap<>();
+	public MyResponse<Object> test(){
 		List<WxtbUser> wxtbUsers = wxtbUserMapper.load();
 		for (WxtbUser wxtbUser : wxtbUsers) {
 			wxtbUser.setUsername(null);
 		}
-		response.put("data", wxtbUsers);
+		logger.info(ConfigProperties.getProperty(ConfigEnum.SERVICE_MAIN_URL));
+		response.setSuccess(wxtbUsers);
 		return response;
 	}
 	
