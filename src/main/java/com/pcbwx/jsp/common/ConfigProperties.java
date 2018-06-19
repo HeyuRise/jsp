@@ -19,14 +19,15 @@ import com.pcbwx.jsp.exception.ExceptionType;
  * 初始化静态变量
  * 
  * @author 孙贺宇
- *
+ * @version 1.0
+ * 
  */
 public class ConfigProperties {
 
 	private static Logger logger = LoggerFactory.getLogger(ConfigProperties.class);
 
 	private static final String FILENAME = "config.properties";
-	
+
 	public static final Properties props = new Properties();
 
 	static {
@@ -52,7 +53,7 @@ public class ConfigProperties {
 			}
 		}
 	}
-	
+
 	public static String getProperty(ConfigEnum config) {
 		String value = props.getProperty(config.getCode());
 		if (value == null) {
@@ -61,7 +62,7 @@ public class ConfigProperties {
 		}
 		return value;
 	}
-	
+
 	public static String getProperty(ConfigEnum config, String defValue) {
 		String value = props.getProperty(config.getCode());
 		if (value == null) {
