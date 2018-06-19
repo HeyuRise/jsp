@@ -8,7 +8,7 @@ import com.pcbwx.jsp.bean.User;
 
 /**
  * 用户会话模块业务接口
- * @author 王海龙
+ * @author 孙贺宇
  */
 
 public interface AccountService {

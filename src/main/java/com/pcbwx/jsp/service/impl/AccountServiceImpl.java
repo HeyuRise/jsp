@@ -35,7 +35,7 @@ import com.pcbwx.jsp.service.SupportService;
 /**
  * 用户会话模块业务接口实现类
  * 
- * @author 王海龙
+ * @author 孙贺宇
  *
  */
 

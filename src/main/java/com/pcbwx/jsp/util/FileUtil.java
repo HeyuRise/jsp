@@ -10,7 +10,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
 /**
- * @author 王海龙
+ * @author 孙贺宇
  * @date 2013-2-22
  */
 public class FileUtil {

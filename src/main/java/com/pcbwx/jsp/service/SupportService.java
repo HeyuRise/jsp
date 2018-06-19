@@ -8,7 +8,7 @@ import com.pcbwx.jsp.enums.ClickEnum;
 /**
  * 工具模块业务接口
  * 
- * @author 王海龙
+ * @author 孙贺宇
  *
  */
 public interface SupportService {

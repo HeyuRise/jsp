@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * 公共通用date工具包
  * 
- * @author 王海龙
+ * @author 孙贺宇
  * @version 1.0
  *
  */

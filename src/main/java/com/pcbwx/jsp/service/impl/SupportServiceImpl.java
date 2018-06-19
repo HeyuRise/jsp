@@ -38,7 +38,7 @@ import com.pcbwx.jsp.service.SupportService;
 /**
  * 日志接口实现类
  * 
- * @author 王海龙
+ * @author 孙贺宇
  *
  */
 @Service("supportService")

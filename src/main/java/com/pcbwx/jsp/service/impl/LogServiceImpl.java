@@ -17,7 +17,7 @@ import com.pcbwx.jsp.service.LogService;
 /**
  * 日志接口实现类
  * 
- * @author 王海龙
+ * @author 孙贺宇
  *
  */
 @Service("logService")

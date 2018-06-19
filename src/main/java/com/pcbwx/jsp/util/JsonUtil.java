@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.type.ArrayType;
 /**
  * json工具类
  * 
- * @author 王海龙
+ * @author 孙贺宇
  * @version 1.1
  */
 public class JsonUtil {

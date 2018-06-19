@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 基本持久化接口，供具体的持久化接口来继承
  * 
- * @author 王海龙
+ * @author 孙贺宇
  *
  * @param <T>
  *            T为具体的Model类

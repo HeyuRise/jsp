@@ -6,7 +6,7 @@ package com.pcbwx.jsp.enums;
 /**
  * 行为类型枚举类
  * 
- * @author 王海龙
+ * @author 孙贺宇
  *
  */
 public enum ActionTypeEnum {

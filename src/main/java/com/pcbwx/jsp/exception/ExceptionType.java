@@ -2,7 +2,7 @@ package com.pcbwx.jsp.exception;
 
 /**
  * 异常类型定义
- * @author 王海龙
+ * @author 孙贺宇
  *
  */
 public enum ExceptionType {

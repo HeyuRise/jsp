@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 /**
  * 字符串工具类,用于处理字符串
- * @author 王海龙
+ * @author 孙贺宇
  * @version 1.0
  */
 public class StringUtil {

@@ -7,7 +7,7 @@ import com.pcbwx.jsp.model.Log;
 /**
  * 日志模块业务接口
  * 
- * @author 王海龙
+ * @author 孙贺宇
  *
  */
 public interface LogService {

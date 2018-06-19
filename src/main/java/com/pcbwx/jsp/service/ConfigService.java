@@ -9,7 +9,7 @@ import com.pcbwx.jsp.model.RecordUtils;
 /**
  * 日志模块业务接口
  * 
- * @author 王海龙
+ * @author 孙贺宇
  *
  */
 public interface ConfigService {
