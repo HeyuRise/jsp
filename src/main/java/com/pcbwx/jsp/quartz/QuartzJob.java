@@ -27,7 +27,7 @@ public class QuartzJob {
 	private SupportService supportService;
 
 	private static AtomicInteger reloadFlag = new AtomicInteger();
-	@Scheduled(fixedRate = 5 * 60 * 1000) // 5分钟
+	@Scheduled(fixedRateString = "${reload.timer.fixedRate}") // 5分钟
 	public void reloadCache() {
 		logger.info("reloadCache的任务调度！！！");
 		if (reloadFlag.incrementAndGet() > 1) {
@@ -44,23 +44,16 @@ public class QuartzJob {
 	}
 
 	private static AtomicInteger planGenerateFlag = new AtomicInteger();	
-	@Scheduled(cron = "0 0/1 * ? * *") // 1分钟
+	@Scheduled(cron = "${plan.generate.timer.corn}") // 1分钟
 	public void generateExePlan() {
+		logger.info("planGenerate的任务调度！！！");
 		if (planGenerateFlag.incrementAndGet() > 1) {
 			planGenerateFlag.decrementAndGet();
 			return;
 		}
 
 		planGenerateFlag.decrementAndGet();	
+		logger.info("planGenerate的任务调度结束！！！");
 	}
-
-	private static AtomicInteger makePlanWindowFlag = new AtomicInteger();
-	@Scheduled(fixedRate = 1 * 60 * 1000) // 1分钟
-	public void makePlanOneWoindow() {
-		if (makePlanWindowFlag.incrementAndGet() > 1) {
-			makePlanWindowFlag.decrementAndGet();
-			return;
-		}
-		makePlanWindowFlag.decrementAndGet();			
-	}
+	
 }
