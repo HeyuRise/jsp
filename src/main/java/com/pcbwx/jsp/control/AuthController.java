@@ -15,13 +15,18 @@ import com.pcbwx.jsp.bean.User;
 import com.pcbwx.jsp.enums.ErrorCodeEnum;
 import com.pcbwx.jsp.service.AccountService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/auth")
+@Api(tags = "权限api")
 public class AuthController extends BaseController {
 	
 	@Autowired
 	private AccountService accountService;
 
+	@ApiOperation("获取用户详情")
 	@GetMapping("/userDetail")
 	public MyResponse<Object> getUserAuths(HttpServletRequest request) {
 		User wxtbUser = accountService.getWxtbUser();
@@ -34,6 +39,7 @@ public class AuthController extends BaseController {
 		return response;
 	}
 
+	@ApiOperation("查看按钮是否显示")
 	@GetMapping("/button")
 	public MyResponse<Object> buttonAppear(HttpServletRequest request,
 			@RequestParam("buttonId") Integer buttonId) {

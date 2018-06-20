@@ -25,7 +25,7 @@ import com.pcbwx.jsp.service.SupportService;
 import com.pcbwx.jsp.util.DataUtil;
 import com.pcbwx.jsp.util.StringUtil;
 
-@Service("myUserDetailServiceImpl")
+@Service("userDetailService")
 @Transactional
 public class MyUserDetailServiceImpl implements UserDetailsService {
 	

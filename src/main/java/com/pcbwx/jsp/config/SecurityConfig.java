@@ -9,12 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 import com.pcbwx.jsp.security.MySecurityFilter;
 import com.pcbwx.jsp.security.MySecurityMetadataSource;
-import com.pcbwx.jsp.security.MyUserDetailServiceImpl;
 import com.pcbwx.jsp.util.MD5Util;
 /**
  * springSecurity配置类
@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MySecurityFilter mySecurityFilter;
 	@Autowired
-	private MyUserDetailServiceImpl userDetailService;
+	private UserDetailsService userDetailService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -39,9 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().anyRequest().authenticated() // 任何请求,登录后可以访问
 				.and().formLogin().loginPage("/login").failureUrl("/login").defaultSuccessUrl("/index.html").permitAll() // 登录页面用户任意访问
 				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll(); // 注销行为任意访问
-				// 默认登录页面
-//				.and().formLogin().defaultSuccessUrl("/index.html").permitAll() 
-//				.and().logout().logoutUrl("/logout").permitAll(); 
 		http.addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class);
 	}
 	
@@ -49,6 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		// 排除不需要拦截的路径
 		web.ignoring().antMatchers("/script/**");
+		// swagger路径
+		web.ignoring().antMatchers("/webjars/**", "/swagger-resources/**", "/v2/**", "/swagger-ui.html");
+		
 	}
 
 	@Override
