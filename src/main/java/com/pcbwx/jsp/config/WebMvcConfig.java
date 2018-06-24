@@ -28,8 +28,8 @@ import com.pcbwx.jsp.interceptor.SessionInterceptor;
  * @author 孙贺宇
  *
  */
-@Configuration
 @EnableWebMvc
+@Configuration
 public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer{
 
 	// 把返回Json中的null换为""
