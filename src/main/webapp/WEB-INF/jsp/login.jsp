@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <title>登录</title>
     <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
-    <link href="script/css/login.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="script/css/radio-checkbox.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="script/js/jquery-2.1.1.min.js"></script>
-    <script src="script/js/login.js"></script>
-	<script src="script/js/jquery.cookie.js"></script>
-	<script src="script/js/base64.js"></script>
+    <link href="../script/css/login.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../script/css/radio-checkbox.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../script/js/jquery-2.1.1.min.js"></script>
+    <script src="../script/js/login.js"></script>
+	<script src="../script/js/jquery.cookie.js"></script>
+	<script src="../script/js/base64.js"></script>
 </head>
 <body>
 <div class="content">

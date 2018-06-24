@@ -55,14 +55,17 @@ public class ConfigProperties {
 	}
 
 	public static String getProperty(ConfigEnum config) {
-		String value = props.getProperty(config.getCode());
-		if (value == null) {
-			logger.error("找不到该配置:" + config.getCode());
-			return value;
-		}
-		return value;
+		return (String)props.get(config.getCode());
 	}
 
+	public static Integer getPropertyInt(ConfigEnum config) {
+		return (Integer)props.get(config.getCode());
+	}
+	
+	public static Boolean getPropertyBoolean(ConfigEnum config) {
+		return (Boolean) props.get(config.getCode());
+	}
+	
 	public static String getProperty(ConfigEnum config, String defValue) {
 		String value = props.getProperty(config.getCode());
 		if (value == null) {
@@ -72,19 +75,10 @@ public class ConfigProperties {
 		return value;
 	}
 
-	public static Integer getPropertyInt(ConfigEnum constant) {
-		String value = props.getProperty(constant.getCode());
+	public static Integer getPropertyInt(ConfigEnum config, Integer defValue) {
+		String value = props.getProperty(config.getCode());
 		if (value == null) {
-			logger.error("找不到该配置:" + constant.getCode());
-			return null;
-		}
-		return Integer.valueOf(value);
-	}
-
-	public static Integer getPropertyInt(ConfigEnum constant, Integer defValue) {
-		String value = props.getProperty(constant.getCode());
-		if (value == null) {
-			logger.error("找不到该配置:" + constant.getCode());
+			logger.error("找不到该配置:" + config.getCode());
 			return defValue;
 		}
 		return Integer.valueOf(value);
