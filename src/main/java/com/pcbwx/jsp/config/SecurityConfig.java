@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable(); // 关闭csrf
-		http.authorizeRequests().anyRequest().authenticated() // 任何请求,登录后可以访问
+		http.authorizeRequests()
+				// .anyRequest().authenticated() // 任何请求,登录后可以访问
 				.and().formLogin().loginPage("/login").failureUrl("/login").defaultSuccessUrl("/index.html").permitAll() // 登录页面用户任意访问
 				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll(); // 注销行为任意访问
 		http.addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class);
@@ -44,8 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/oiss_web_service/**");
 		// 排除不需要拦截的路径
 		web.ignoring().antMatchers("/script/**");
+		web.ignoring().antMatchers("/eda/**");
 		// swagger路径
 		web.ignoring().antMatchers("/webjars/**", "/swagger-resources/**", "/v2/**", "/swagger-ui.html");
 		

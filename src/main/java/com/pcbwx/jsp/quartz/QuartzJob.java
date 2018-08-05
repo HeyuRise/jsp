@@ -25,7 +25,7 @@ public class QuartzJob {
 	
 	@Autowired
 	private SupportService supportService;
-
+	
 	private static AtomicInteger reloadFlag = new AtomicInteger();
 	@Scheduled(fixedRateString = "${reload.timer.fixedRate}") // 5分钟
 	public void reloadCache() {

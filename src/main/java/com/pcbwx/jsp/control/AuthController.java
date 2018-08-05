@@ -53,4 +53,5 @@ public class AuthController extends BaseController {
 		response.setCodeAndMsg(ErrorCodeEnum.SYSTEM_ERROR);
 		return response;
 	}
+	
 }
