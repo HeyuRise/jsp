@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * @author 孙贺宇
  * 
- *         Redis配置类
+ * Redis配置类
  * 
  */
 @Configuration

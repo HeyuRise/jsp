@@ -39,9 +39,8 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
 	@Autowired
 	private WxtbUserMapper wxtbUserMapper;
 	
-	
-	@Override
 	//通过cas返回的用户名，重载为系统中自定义的用户
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		if(StringUtil.isEmpty(username)){
 			throw new UsernameNotFoundException("用户名不能为空！");	
