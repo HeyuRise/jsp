@@ -11,12 +11,7 @@ package com.pcbwx.jsp.enums;
  */
 public enum RedisKeyEnum {
 	
-	DICTIONARY("dictionary", "字典表"),
-	USERROLE("user_role", "角色表"),
-	USERROLERELATION("user_role_relation", "用户角色表"),
-	USERAUTH("user_auth", "权限表"),
-	ROLEAUTH("role_auth", "角色权限表"),
-	MENU("menu", "菜单表");
+	DICTIONARY("dictionary", "字典表");
 
 	private String code; // 日志代码
 	private String desc; // 日志描述
