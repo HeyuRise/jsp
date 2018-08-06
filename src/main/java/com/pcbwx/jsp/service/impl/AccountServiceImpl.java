@@ -30,6 +30,7 @@ import com.pcbwx.jsp.model.Menu;
 import com.pcbwx.jsp.model.UserRole;
 import com.pcbwx.jsp.service.AccountService;
 import com.pcbwx.jsp.service.CacheService;
+import com.pcbwx.jsp.service.RedisService;
 import com.pcbwx.jsp.service.SupportService;
 
 /**
@@ -46,6 +47,8 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Autowired
 	private CacheService cacheService;
+	@Autowired
+	private RedisService redisService;
 	@Autowired
 	private SupportService supportService;
 	
@@ -147,7 +150,7 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Override
 	public Boolean getButtonAppear(String account, Integer buttonId) {
-		Dictionary dictionary = cacheService.getDictionary(DictionaryEnum.BUTTON, buttonId);
+		Dictionary dictionary = redisService.getDictionary(DictionaryEnum.BUTTON, buttonId);
 		if (dictionary == null) {
 			return true;
 		}

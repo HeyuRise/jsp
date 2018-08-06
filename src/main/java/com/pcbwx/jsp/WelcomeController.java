@@ -18,9 +18,13 @@ package com.pcbwx.jsp;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +33,9 @@ import com.pcbwx.jsp.bean.MyResponse;
 import com.pcbwx.jsp.common.ConfigProperties;
 import com.pcbwx.jsp.dao.WxtbUserMapper;
 import com.pcbwx.jsp.enums.ConfigEnum;
+import com.pcbwx.jsp.enums.DictionaryEnum;
 import com.pcbwx.jsp.model.WxtbUser;
+import com.pcbwx.jsp.service.RedisService;
 
 @Controller
 public class WelcomeController {
@@ -41,10 +47,19 @@ public class WelcomeController {
 	
 	@Autowired
 	public WxtbUserMapper wxtbUserMapper;
+	
+	@Resource
+	private StringRedisTemplate stringTemplate;
+	@Resource
+	private RedisTemplate<String, WxtbUser> template;
+	
+	@Autowired
+	private RedisService redisService;
 
-	@GetMapping("/")
-	public String welcome() {
-		return "welcome";
+	@GetMapping("/redis")
+	@ResponseBody
+	public Object welcome() {
+		return redisService.getDictionarys(DictionaryEnum.PAY_METHOD);
 	}
 	
 	// 登录页

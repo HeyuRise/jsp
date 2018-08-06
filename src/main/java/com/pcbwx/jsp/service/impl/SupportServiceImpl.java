@@ -33,6 +33,7 @@ import com.pcbwx.jsp.model.UserRole;
 import com.pcbwx.jsp.model.UserRoleRelation;
 import com.pcbwx.jsp.service.CacheService;
 import com.pcbwx.jsp.service.ConfigService;
+import com.pcbwx.jsp.service.RedisService;
 import com.pcbwx.jsp.service.SupportService;
 
 /**
@@ -50,6 +51,8 @@ public class SupportServiceImpl implements SupportService {
 	private CacheService cacheService;
 	@Autowired
 	private ConfigService configService;
+	@Autowired
+	private RedisService redisService;
 
 	@Autowired
 	private DictionaryMapper dictionaryMapper;
@@ -83,7 +86,7 @@ public class SupportServiceImpl implements SupportService {
 
 	private void reloadDictionary() {
 		List<Dictionary> dictionarys = dictionaryMapper.load();
-		cacheService.reloadDictionary(dictionarys);
+		redisService.reloadDictionary(dictionarys);
 	}
 	
 	@Override
@@ -191,7 +194,7 @@ public class SupportServiceImpl implements SupportService {
 		Set<Integer> authIds = this.getUserAuths(account);
 		Integer click = ErrorCodeEnum.SUCCESS.getCode();
 		// 查看用户是否有操作权限
-		Dictionary dictionary = cacheService.getDictionary(DictionaryEnum.BUTTON, clickEnum.getCode());
+		Dictionary dictionary = redisService.getDictionary(DictionaryEnum.BUTTON, clickEnum.getCode());
 		if (dictionary != null) {
 			Integer authId = dictionary.getParamInt1();
 			if (authId != null) {
