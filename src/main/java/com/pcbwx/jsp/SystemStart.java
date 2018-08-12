@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +20,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @author 孙贺宇
  *
  */
+@Slf4j
 @SpringBootApplication
 @MapperScan(basePackages = "com.pcbwx.jsp.dao") // mybatis包路径
 public class SystemStart extends SpringBootServletInitializer {
-
-	private static Logger logger = LoggerFactory.getLogger(SystemStart.class);
 	// springBoot配置文件名字
 	private static final String FILENAME = "spring.properties";
 	// 系统英文简写
@@ -38,7 +38,7 @@ public class SystemStart extends SpringBootServletInitializer {
 		SpringApplication springApplication = new SpringApplication(SystemStart.class);
 		springApplication.setDefaultProperties(properties);
 		springApplication.run(args);
-		logger.info("系统已经启动");
+		log.info("系统已经启动");
 	}
 
 	@Override
