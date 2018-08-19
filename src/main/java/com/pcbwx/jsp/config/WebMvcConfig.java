@@ -56,6 +56,10 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 		patterns.add("/script/**");
 		patterns.add("/print/**");
 		patterns.add("/index.html");
+		patterns.add("/swagger-ui.html");
+		patterns.add("/webjars/**");
+		patterns.add("/swagger-resources/**");
+		patterns.add("/swagger-resources/**");
 		registry.addInterceptor(new SessionInterceptor()).excludePathPatterns(patterns); 
 	}
 	
