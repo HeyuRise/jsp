@@ -1,9 +1,7 @@
 package com.pcbwx.jsp.config;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.CountDownLatch;
 
-import com.pcbwx.jsp.model.Dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -21,6 +19,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pcbwx.jsp.model.Dictionary;
 
 /**
  * Redis配置类

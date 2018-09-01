@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -20,7 +17,6 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.pcbwx.jsp.dao.RoleAuthMapper;
 import com.pcbwx.jsp.dao.UserAuthMapper;
@@ -29,6 +25,8 @@ import com.pcbwx.jsp.model.RoleAuth;
 import com.pcbwx.jsp.model.UserAuth;
 import com.pcbwx.jsp.model.UserRole;
 import com.pcbwx.jsp.util.StringUtil;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 加载页面资源
