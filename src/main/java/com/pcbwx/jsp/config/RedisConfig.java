@@ -3,6 +3,7 @@ package com.pcbwx.jsp.config;
 import java.lang.reflect.Method;
 import java.util.concurrent.CountDownLatch;
 
+import com.pcbwx.jsp.model.Dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -78,20 +79,12 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 	@Bean
 	RedisTemplate<String, Object> template(RedisConnectionFactory connectionFactory) {
-//		Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(
-//				Object.class);
-//		ObjectMapper om = new ObjectMapper();
-//		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-//		jackson2JsonRedisSerializer.setObjectMapper(om);
-//		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
-//		template.setConnectionFactory(connectionFactory);
-//		template.setKeySerializer(jackson2JsonRedisSerializer);
-//		template.setValueSerializer(jackson2JsonRedisSerializer);
-//		template.setHashKeySerializer(jackson2JsonRedisSerializer);
-//		template.setHashValueSerializer(jackson2JsonRedisSerializer);
-//		template.afterPropertiesSet();
 		return createTemplate(Object.class, connectionFactory);
+	}
+
+	@Bean
+	RedisTemplate<String, Dictionary> templateDic(RedisConnectionFactory connectionFactory) {
+		return createTemplate(Dictionary.class, connectionFactory);
 	}
 
 	public class Receiver {

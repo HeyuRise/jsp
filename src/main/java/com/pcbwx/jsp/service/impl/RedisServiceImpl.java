@@ -28,10 +28,12 @@ public class RedisServiceImpl implements RedisService {
 
 	@Autowired
 	private RedisTemplate<String, Object> template;
+	@Autowired
+	private RedisTemplate<String, Dictionary> templateDic;
 
 	@Override
 	public void reloadDictionary(List<Dictionary> dictionarys) {
-		ValueOperations<String, Object> operation = template.opsForValue();
+		ValueOperations<String, Dictionary> operation = templateDic.opsForValue();
 		for (Dictionary record : dictionarys) {
 			String key = SystemStart.MYSYSTEMCODE + ":" + RedisKeyEnum.DICTIONARY.getCode() + ":" + record.getType();
 			if (record.getInnerId() != null) {
@@ -70,14 +72,14 @@ public class RedisServiceImpl implements RedisService {
 	public Dictionary getDictionary(DictionaryEnum type, Integer innerId) {
 		String key = SystemStart.MYSYSTEMCODE + ":" + RedisKeyEnum.DICTIONARY.getCode() + ":" + type.getCode() + ":"
 				+ innerId;
-		return (Dictionary) template.opsForValue().get(key);
+		return templateDic.opsForValue().get(key);
 	}
 
 	@Override
 	public Dictionary getDictionary(DictionaryEnum type, String innerCode) {
 		String key = SystemStart.MYSYSTEMCODE + ":" + RedisKeyEnum.DICTIONARY.getCode() + ":" + type.getCode() + ":"
 				+ innerCode;
-		return (Dictionary) template.opsForValue().get(key);
+		return templateDic.opsForValue().get(key);
 	}
 
 	@Override

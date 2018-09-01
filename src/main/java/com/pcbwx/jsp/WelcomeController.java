@@ -37,6 +37,12 @@ import com.pcbwx.jsp.enums.DictionaryEnum;
 import com.pcbwx.jsp.model.WxtbUser;
 import com.pcbwx.jsp.service.RedisService;
 
+/**
+ * demos
+ *
+ * @author heyu
+ * @date 2018-09-01
+ */
 @Controller
 public class WelcomeController {
 	
@@ -56,13 +62,18 @@ public class WelcomeController {
 	@Autowired
 	private RedisService redisService;
 
-	@GetMapping("/redis")
+	@GetMapping("/redis-list")
 	@ResponseBody
 	public Object welcome() {
 		return redisService.getDictionarys(DictionaryEnum.PAY_METHOD);
 	}
-	
-	// 登录页
+
+	@GetMapping("/redis")
+	@ResponseBody
+	public Object welcome2() {
+		return redisService.getDictionary(DictionaryEnum.PAY_METHOD,1);
+	}
+
 	@GetMapping("/login")
 	public String login() {
 		return "login";

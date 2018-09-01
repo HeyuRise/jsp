@@ -17,9 +17,9 @@ public class DateTimeUtil {
 	 * @return 字符串格式时间
 	 */
 	public static String date2dateTimeStr(Date aDate) {
-		if (aDate == null)
+		if (aDate == null) {
 			return null;
-
+		}
 		SimpleDateFormat theFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return theFormat.format(aDate);
 	}
@@ -33,9 +33,9 @@ public class DateTimeUtil {
 	 * @return 字符串格式时间
 	 */
 	public static String date2dateTimeStr(Date aDate, String pattern) {
-		if (aDate == null)
+		if (aDate == null) {
 			return null;
-
+		}
 		SimpleDateFormat theFormat = new SimpleDateFormat(pattern);
 		return theFormat.format(aDate);
 	}
@@ -58,8 +58,9 @@ public class DateTimeUtil {
 	 * @return
 	 */
 	public static String date2dateStr(Date dateValue) {
-		if (dateValue == null)
+		if (dateValue == null) {
 			return null;
+		}
 		SimpleDateFormat theFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return theFormat.format(dateValue);
 	}
@@ -70,9 +71,9 @@ public class DateTimeUtil {
 	 * @return String 字符串格式时间
 	 */
 	public static String date2dateStr_ex(Date aDate) {
-		if (aDate == null)
+		if (aDate == null) {
 			return null;
-
+		}
 		SimpleDateFormat theFormat = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
 		return theFormat.format(aDate);
 	}
