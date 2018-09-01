@@ -1,5 +1,9 @@
 package com.pcbwx.jsp.enums;
 
+/**
+ * @author heyu
+ */
+
 public enum ClickEnum {
 	PRINT(2,"打印"),
 	SERVICE_ENABLE(12,"增值服务启用/禁用"),
@@ -9,7 +13,7 @@ public enum ClickEnum {
 	private int code;
 	private String descr;
 	
-	private ClickEnum(int code, String descr) {
+	ClickEnum(int code, String descr) {
 		this.code = code;
 		this.descr = descr;
 	}

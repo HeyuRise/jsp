@@ -21,6 +21,10 @@ import com.pcbwx.jsp.model.UserRoleRelation;
 import com.pcbwx.jsp.service.CacheService;
 import com.pcbwx.jsp.util.DataUtil;
 
+/**
+ * 缓存服务
+ * @author heyu
+ */
 @Service("cacheService")
 public class CacheServiceImpl implements CacheService {
 	
@@ -38,11 +42,10 @@ public class CacheServiceImpl implements CacheService {
 	private Map<Integer, Menu> menuCache = new HashMap<Integer, Menu>();	
 		
 	@Override
-	public void reloadDictionary(List<Dictionary> dictionarys) {
-//		logger.info("载入字典表相关信息");
+	public void reloadDictionary(List<Dictionary> dictionaries) {
 		Map<String, Dictionary> newDictionaryCache = new HashMap<String, Dictionary>();
-		if (dictionarys != null && !dictionarys.isEmpty()) {
-			for (Dictionary record : dictionarys) {
+		if (dictionaries != null && !dictionaries.isEmpty()) {
+			for (Dictionary record : dictionaries) {
 				if (record.getInnerId() != null) {
 					String key = record.getType() + "#" + record.getInnerId();
 					newDictionaryCache.put(key, record);
@@ -53,10 +56,10 @@ public class CacheServiceImpl implements CacheService {
 				}
 			}
 			dictionaryCache = newDictionaryCache;
-			logger.info("字典缓存条数:" + dictionarys.size());
+			logger.info("字典缓存条数:" + dictionaries.size());
 			
 			try {
-				dictionaryByTypeCache = DataUtil.list2mapList(dictionarys, Dictionary.class, "type");
+				dictionaryByTypeCache = DataUtil.list2mapList(dictionaries, Dictionary.class, "type");
 				logger.info("字典类别缓存条数:" + dictionaryByTypeCache.size());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -131,6 +134,7 @@ public class CacheServiceImpl implements CacheService {
 	}
 
 	//----------------------------------------------------------------------
+
 	private String getDictionaryKey(DictionaryEnum type, Integer innerId) {
 		String dictionaryKey = type.getCode() + "#" + innerId;
 		return dictionaryKey;

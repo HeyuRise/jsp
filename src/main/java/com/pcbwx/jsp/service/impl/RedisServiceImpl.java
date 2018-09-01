@@ -21,13 +21,17 @@ import com.pcbwx.jsp.service.RedisService;
 import com.pcbwx.jsp.util.DataUtil;
 import com.pcbwx.jsp.util.JsonUtil;
 
+/**
+ * redis 缓存服务
+ *
+ * @author heyu
+ * @date 2018-09-01
+ */
 @Service("redisService")
 public class RedisServiceImpl implements RedisService {
 	
 	private static Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
 
-	@Autowired
-	private RedisTemplate<String, Object> template;
 	@Autowired
 	private RedisTemplate<String, Dictionary> templateDic;
 
@@ -48,7 +52,8 @@ public class RedisServiceImpl implements RedisService {
 			}
 		}
 		// #-------------------------------------------------------------
-		Map<String, List<Dictionary>> dicCache = new HashMap<>();
+
+		Map<String, List<Dictionary>> dicCache = new HashMap<>(50);
 		try {
 			dicCache = DataUtil.list2mapList(dictionarys, Dictionary.class, "type");
 			logger.info("字典类别缓存条数:" + dicCache.size());
@@ -56,10 +61,10 @@ public class RedisServiceImpl implements RedisService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ListOperations<String, Object> listOperation = template.opsForList();
+		ListOperations<String, Dictionary> listOperation = templateDic.opsForList();
 		for (Map.Entry<String, List<Dictionary>> entry : dicCache.entrySet()) {
 			String key = SystemStart.MYSYSTEMCODE + ":" + RedisKeyEnum.DICTIONARY.getCode() + ":" + entry.getKey();
-			template.delete(key);
+            templateDic.delete(key);
 			List<Dictionary> dic = entry.getValue();
 			for (Dictionary dictionary : dic) {
 				listOperation.leftPush(key, dictionary);
@@ -84,13 +89,13 @@ public class RedisServiceImpl implements RedisService {
 
 	@Override
 	public List<Dictionary> getDictionarys(DictionaryEnum type) {
-		ListOperations<String, Object> operation = template.opsForList();
+		ListOperations<String, Dictionary> operation = templateDic.opsForList();
 		String key = SystemStart.MYSYSTEMCODE + ":" + RedisKeyEnum.DICTIONARY.getCode() + ":" + type.getCode();
-		List<Object> list = operation.range(key, 0, -1);
+		List<Dictionary> list = operation.range(key, 0, -1);
 		logger.info(JsonUtil.obj2json(list));
 		List<Dictionary> dicList = new ArrayList<>();
-		for (Object object : list) {
-			dicList.add((Dictionary)object);
+		for (Dictionary object : list) {
+			dicList.add(object);
 		}
 		return dicList;
 	}

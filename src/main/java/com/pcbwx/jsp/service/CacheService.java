@@ -22,6 +22,7 @@ public interface CacheService {
 	void reloadRoleAuth(List<RoleAuth> records);
 	void reloadMenu(List<Menu> records);
 	//--------------------------------------------------
+
 	Dictionary getDictionary(DictionaryEnum type, Integer innerId);
 	Dictionary getDictionary(DictionaryEnum type, String innerCode);
 	

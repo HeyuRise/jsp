@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pcbwx.jsp.common.DateConverter;
 import com.pcbwx.jsp.common.NullSerializer;
-import com.pcbwx.jsp.interceptor.CheckLoginFilter;
+import com.pcbwx.jsp.interceptor.PageFilter;
 import com.pcbwx.jsp.interceptor.SessionInterceptor;
 
 /**
@@ -32,7 +32,11 @@ import com.pcbwx.jsp.interceptor.SessionInterceptor;
 @Configuration
 public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer{
 
-	// 把返回Json中的null换为""
+	//
+
+	/**
+	 * 把返回Json中的null换为""
+	 */
 	@Bean
 	@Primary
 	@ConditionalOnMissingBean(ObjectMapper.class)
@@ -41,14 +45,15 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 		objectMapper.getSerializerProvider().setNullValueSerializer(new NullSerializer());
 		return objectMapper;
 	}
-	
-	// 添加日期解析器
+
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(new DateConverter());
 	}
-	
-	// 添加拦截器
+
+	/**
+	 * 添加拦截器
+	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		List<String> patterns = new ArrayList<>();
@@ -62,13 +67,15 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 		patterns.add("/swagger-resources/**");
 		registry.addInterceptor(new SessionInterceptor()).excludePathPatterns(patterns); 
 	}
-	
-	// 添加过滤器
+
+	/**
+	 * 添加过滤器
+	 */
 	@Bean
 	@Order(Integer.MAX_VALUE) // 指定过滤器顺序（小一级为Integer.MAX_VALUE - 1）
-	public FilterRegistrationBean<CheckLoginFilter> filterRegistrationBean() {
-		FilterRegistrationBean<CheckLoginFilter> registrationBean = new FilterRegistrationBean<CheckLoginFilter>();
-		CheckLoginFilter loginFilter = new CheckLoginFilter();
+	public FilterRegistrationBean<PageFilter> filterRegistrationBean() {
+		FilterRegistrationBean<PageFilter> registrationBean = new FilterRegistrationBean<PageFilter>();
+		PageFilter loginFilter = new PageFilter();
 		registrationBean.setFilter(loginFilter);
 		List<String> urlPatterns = new ArrayList<String>();
 		urlPatterns.add("/login");

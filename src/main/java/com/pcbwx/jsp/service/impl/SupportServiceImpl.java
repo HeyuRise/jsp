@@ -85,8 +85,8 @@ public class SupportServiceImpl implements SupportService {
 	}
 
 	private void reloadDictionary() {
-		List<Dictionary> dictionarys = dictionaryMapper.load();
-		redisService.reloadDictionary(dictionarys);
+		List<Dictionary> dictionaries = dictionaryMapper.load();
+		redisService.reloadDictionary(dictionaries);
 	}
 	
 	@Override
@@ -101,14 +101,14 @@ public class SupportServiceImpl implements SupportService {
 	}
 
 	public void reloadUserAuth(){
-		List<UserAuth> userAuths = userAuthMapper.load();
-		cacheService.reloadUserAuth(userAuths);
+		List<UserAuth> userAuthList = userAuthMapper.load();
+		cacheService.reloadUserAuth(userAuthList);
 	}
 	
 	@Override
 	public void reloadRoleAuth(){
-		List<RoleAuth> roleAuths = roleAuthMapper.load();
-		cacheService.reloadRoleAuth(roleAuths);
+		List<RoleAuth> roleAuthList = roleAuthMapper.load();
+		cacheService.reloadRoleAuth(roleAuthList);
 	}
 	
 	private void reloadMenu(){
@@ -190,7 +190,7 @@ public class SupportServiceImpl implements SupportService {
 	}
 
 	@Override
-	public Integer ebableClick(String account, ClickEnum clickEnum) {
+	public Integer enableClick(String account, ClickEnum clickEnum) {
 		Set<Integer> authIds = this.getUserAuths(account);
 		Integer click = ErrorCodeEnum.SUCCESS.getCode();
 		// 查看用户是否有操作权限

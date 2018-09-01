@@ -15,7 +15,7 @@ public enum DictionaryEnum {
 	private String code;
 	private String descr;
 	
-	private DictionaryEnum(String code, String descr) {
+	DictionaryEnum(String code, String descr) {
 		this.code = code;
 		this.descr = descr;
 	}

@@ -13,10 +13,10 @@ public enum RedisKeyEnum {
 	
 	DICTIONARY("dictionary", "字典表");
 
-	private String code; // 日志代码
-	private String desc; // 日志描述
+	private String code;
+	private String desc;
 
-	private RedisKeyEnum(String code, String desc) {
+	RedisKeyEnum(String code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}

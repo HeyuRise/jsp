@@ -65,7 +65,6 @@ public class ConfigServiceImpl implements ConfigService {
 	
 	@Override
 	public Integer readIntConfig(ConfigEnum option) {
-//		Config config = configMapper.selectByCfgName(option.getCode());
 		Config config = configCache.get(option.getCode());
 		if (config != null) {
 			return config.getValueInt();
@@ -75,7 +74,6 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Override
 	public String readStrConfig(ConfigEnum option) {
-//		Config config = configMapper.selectByCfgName(option.getCode());
 		Config config = configCache.get(option.getCode());
 		if (config != null) {
 			return config.getValueStr();
@@ -85,7 +83,6 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Override
 	public Date readDateConfig(ConfigEnum option) {
-//		Config config = configMapper.selectByCfgName(option.getCode());
 		Config config = configCache.get(option.getCode());
 		if (config != null) {
 			return config.getValueTime();
@@ -323,19 +320,19 @@ public class ConfigServiceImpl implements ConfigService {
 		}
 		List<TaskClock> times = taskClockMapper.selectByTask(taskName);
 		if (times == null || times.isEmpty()) {
-			if (task != null) {	// 如果是单项配置，找不到，采用默认配置
+			// 如果是单项配置，找不到，采用默认配置
+			if (task != null) {
 				times = taskClockMapper.selectByTask(TaskClockEnum.DEFAULT.getCode());
 			}			
 		}
 		if (times == null || times.isEmpty()) {
-//			logger.error("导出时间配置", "没有导出数据任务的时间点配置！！！！！");
+			logger.error("导出时间配置", "没有导出数据任务的时间点配置！！！！！");
 			return false;
 		}
 		for (TaskClock clock : times) {
 			Date date = DateTimeUtil.truncateDateTime(now);
 			Date clockDate = DateTimeUtil.truncateDateTime(clock.getClock());
 			int extSeconds = (int) ((clock.getClock().getTime() - clockDate.getTime()) / 1000);
-//			logger.info("clock=" + clock.getClock().toString() + ",seconds=" + extSeconds);
 			date = DateCalcUtil.addTime(date, Calendar.SECOND, extSeconds);
 			if (now.compareTo(date) >= 0) {
 				if (exportTime == null || exportTime.getValueTime() == null || exportTime.getValueTime().before(date)) {

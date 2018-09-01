@@ -37,5 +37,5 @@ public interface SupportService {
 	 * @param clickEnum
 	 * @return
 	 */
-	Integer ebableClick(String account, ClickEnum clickEnum);
+	Integer enableClick(String account, ClickEnum clickEnum);
 }

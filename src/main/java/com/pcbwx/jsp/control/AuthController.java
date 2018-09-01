@@ -18,6 +18,11 @@ import com.pcbwx.jsp.service.AccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ *
+ * @author heyu
+ * @date 2018-09-01
+ */
 @RestController
 @RequestMapping("/auth")
 @Api(tags = "权限api")

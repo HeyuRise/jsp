@@ -1,5 +1,10 @@
 package com.pcbwx.jsp.enums;
 
+
+/**
+ * @author heyu
+ */
+
 public enum TaskClockEnum {
 	// ====cad====
 	MAILNO_SYNCHRONIZE("mailno_synchronize", "同步运单号"),
@@ -8,7 +13,7 @@ public enum TaskClockEnum {
 	private String code;
 	private String descr;
 		
-	private TaskClockEnum(String code, String descr) {
+	TaskClockEnum(String code, String descr) {
 		this.code = code;
 		this.descr = descr;
 	}

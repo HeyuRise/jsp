@@ -20,7 +20,7 @@ public enum ConfigEnum {
 	private String code;
 	private String descr;
 	
-	private ConfigEnum(String code, String descr) {
+	ConfigEnum(String code, String descr) {
 		this.code = code;
 		this.descr = descr;
 	}

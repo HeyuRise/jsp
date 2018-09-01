@@ -2,6 +2,7 @@ package com.pcbwx.jsp.quartz;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,18 @@ import com.pcbwx.jsp.service.SupportService;
  * @version 1.0
  *
  */
+@Slf4j
 @Configuration
 @EnableScheduling
 public class QuartzJob {
-	
-	private Logger logger = LoggerFactory.getLogger(QuartzJob.class);
 	
 	@Autowired
 	private SupportService supportService;
 	
 	private static AtomicInteger reloadFlag = new AtomicInteger();
-	@Scheduled(fixedRateString = "${reload.timer.fixedRate}") // 5分钟
+	@Scheduled(fixedRateString = "${reload.timer.fixedRate}")
 	public void reloadCache() {
-		logger.info("reloadCache的任务调度！！！");
+		log.info("reloadCache的任务调度！！！");
 		if (reloadFlag.incrementAndGet() > 1) {
 			reloadFlag.decrementAndGet();
 			return;
@@ -37,23 +37,23 @@ public class QuartzJob {
 		try {
 			supportService.doReloadCache();
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			log.error(e.getMessage());
 		}
-		reloadFlag.decrementAndGet();		
-		logger.info("reloadCache的任务调度结束！！！");
+		reloadFlag.decrementAndGet();
+		log.info("reloadCache的任务调度结束！！！");
 	}
 
 	private static AtomicInteger planGenerateFlag = new AtomicInteger();	
-	@Scheduled(cron = "${plan.generate.timer.corn}") // 1分钟
+	@Scheduled(cron = "${plan.generate.timer.corn}")
 	public void generateExePlan() {
-		logger.info("planGenerate的任务调度！！！");
+		log.info("planGenerate的任务调度！！！");
 		if (planGenerateFlag.incrementAndGet() > 1) {
 			planGenerateFlag.decrementAndGet();
 			return;
 		}
 
-		planGenerateFlag.decrementAndGet();	
-		logger.info("planGenerate的任务调度结束！！！");
+		planGenerateFlag.decrementAndGet();
+		log.info("planGenerate的任务调度结束！！！");
 	}
 	
 }

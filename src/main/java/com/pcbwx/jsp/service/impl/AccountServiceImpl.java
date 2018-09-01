@@ -43,8 +43,6 @@ import com.pcbwx.jsp.service.SupportService;
 @Service("accountService")
 public class AccountServiceImpl implements AccountService {
 	
-	Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
-	
 	@Autowired
 	private CacheService cacheService;
 	@Autowired

@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @SpringBootApplication
-@MapperScan(basePackages = "com.pcbwx.jsp.dao") // mybatis包路径
+@MapperScan(basePackages = "com.pcbwx.jsp.dao") //
 public class SystemStart extends SpringBootServletInitializer {
 	// springBoot配置文件名字
 	private static final String FILENAME = "spring.properties";

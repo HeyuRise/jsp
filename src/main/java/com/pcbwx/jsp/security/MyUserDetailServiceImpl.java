@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.pcbwx.jsp.bean.User;
 import com.pcbwx.jsp.dao.WxtbUserMapper;
@@ -25,8 +24,10 @@ import com.pcbwx.jsp.service.SupportService;
 import com.pcbwx.jsp.util.DataUtil;
 import com.pcbwx.jsp.util.StringUtil;
 
+/**
+ * @author heyu
+ */
 @Service("userDetailService")
-@Transactional
 public class MyUserDetailServiceImpl implements UserDetailsService {
 	
 	Logger logger = LoggerFactory.getLogger(MyUserDetailServiceImpl.class);
@@ -38,8 +39,13 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
 	
 	@Autowired
 	private WxtbUserMapper wxtbUserMapper;
-	
-	//通过cas返回的用户名，重载为系统中自定义的用户
+
+	/**
+	 * 通过cas返回的用户名，重载为系统中自定义的用户
+	 * @param username 用户名
+	 * @return
+	 * @throws UsernameNotFoundException
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		if(StringUtil.isEmpty(username)){
@@ -61,13 +67,13 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("对不起，您没有该系统权限 ");	
 		}
 		User user = (User) DataUtil.fatherToChild(wxtbUser, User.class);
-		Set<GrantedAuthority> authorities = obtionGrantedAuthority(user);
+		Set<GrantedAuthority> authorities = obtainGrantedAuthority(user);
 		user.setAuthorities(authorities);
         return user;
 	}
 	
-	private Set<GrantedAuthority> obtionGrantedAuthority(User user){
-		Set<GrantedAuthority> roleSet = new HashSet<GrantedAuthority>();
+	private Set<GrantedAuthority> obtainGrantedAuthority(User user){
+		Set<GrantedAuthority> roleSet = new HashSet<>();
 		final List<UserRole> userRoles = cacheService.getUserRole(user.getAccount());
 	    for(UserRole role : userRoles) {
 	        roleSet.add(new SimpleGrantedAuthority(role.getRoleName()));

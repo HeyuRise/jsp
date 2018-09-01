@@ -16,7 +16,10 @@ import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Component;
 
-//过滤用户请求
+/**
+ * 过滤用户请求
+ * @author heyu
+ */
 @Component
 public class MySecurityFilter extends AbstractSecurityInterceptor implements Filter {
 	
@@ -33,20 +36,10 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements Fil
 		return this.securityMetadataSource;
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		FilterInvocation fi = new FilterInvocation(request, response, chain);
-		invoke(fi);
-	}
-
-	private void invoke(FilterInvocation fi) throws IOException, ServletException {
-		// object为FilterInvocation对象
-		// super.beforeInvocation(fi);//源码
-		// 1.获取请求资源的权限
-		// 执行 Collection<ConfigAttribute> attributes =
-		// securityMetadataSource.getAttributes(fi);
-		// 2.是否拥有权限
-		// this.accessDecisionManager.decide(authenticated, fi, attributes);
 		InterceptorStatusToken token = super.beforeInvocation(fi);
 		try {
 			fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
@@ -69,8 +62,7 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements Fil
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 }

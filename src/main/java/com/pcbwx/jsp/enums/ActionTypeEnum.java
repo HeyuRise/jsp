@@ -53,10 +53,10 @@ public enum ActionTypeEnum {
 	ORDER_EXPRESS("order.express", "获取快递单列表"),
 	ORDER_EXPRESS_EXPORT("order.express.export", "导出快递单");
 
-	private String code; // 日志代码
-	private String desc; // 日志描述
+	private String code;
+	private String desc;
 
-	private ActionTypeEnum(String code, String desc) {
+	ActionTypeEnum(String code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}

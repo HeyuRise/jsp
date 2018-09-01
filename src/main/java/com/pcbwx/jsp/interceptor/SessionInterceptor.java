@@ -21,15 +21,18 @@ public class SessionInterceptor implements HandlerInterceptor {
 	/**
 	 * 在controller后拦截
 	 */
+	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object object,
-			Exception exception) throws Exception {
+								Exception exception) {
 	}
 
+	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object object,
-			ModelAndView modelAndView) throws Exception {
+						   ModelAndView modelAndView) {
 	}
 
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) {
 		// 打印请求信息
 		String reqUrl = request.getRequestURL().toString();
 		String paramStr = request.getQueryString();
