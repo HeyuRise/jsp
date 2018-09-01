@@ -78,20 +78,20 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 	@Bean
 	RedisTemplate<String, Object> template(RedisConnectionFactory connectionFactory) {
-		Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(
-				Object.class);
-		ObjectMapper om = new ObjectMapper();
-		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-		jackson2JsonRedisSerializer.setObjectMapper(om);
-		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
-		template.setConnectionFactory(connectionFactory);
-		template.setKeySerializer(jackson2JsonRedisSerializer);
-		template.setValueSerializer(jackson2JsonRedisSerializer);
-		template.setHashKeySerializer(jackson2JsonRedisSerializer);
-		template.setHashValueSerializer(jackson2JsonRedisSerializer);
-		template.afterPropertiesSet();
-		return template;
+//		Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(
+//				Object.class);
+//		ObjectMapper om = new ObjectMapper();
+//		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+//		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+//		jackson2JsonRedisSerializer.setObjectMapper(om);
+//		RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+//		template.setConnectionFactory(connectionFactory);
+//		template.setKeySerializer(jackson2JsonRedisSerializer);
+//		template.setValueSerializer(jackson2JsonRedisSerializer);
+//		template.setHashKeySerializer(jackson2JsonRedisSerializer);
+//		template.setHashValueSerializer(jackson2JsonRedisSerializer);
+//		template.afterPropertiesSet();
+		return createTemplate(Object.class, connectionFactory);
 	}
 
 	public class Receiver {
@@ -106,4 +106,27 @@ public class RedisConfig extends CachingConfigurerSupport {
 			latch.countDown();
 		}
 	}
+	
+	/**
+	 * 创建redis操作实例
+	 * @param clazz		泛型类
+	 * @param connectionFactory redis连接工厂
+	 * @return
+	 */
+	private <T> RedisTemplate<String, T> createTemplate(Class<T> clazz, RedisConnectionFactory connectionFactory){
+		Jackson2JsonRedisSerializer<T> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<T>(
+				clazz);
+		ObjectMapper om = new ObjectMapper();
+		om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+		om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+		jackson2JsonRedisSerializer.setObjectMapper(om);
+		RedisTemplate<String, T> template = new RedisTemplate<String, T>();
+		template.setConnectionFactory(connectionFactory);
+		template.setKeySerializer(jackson2JsonRedisSerializer);
+		template.setValueSerializer(jackson2JsonRedisSerializer);
+		template.setHashKeySerializer(jackson2JsonRedisSerializer);
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
+		template.afterPropertiesSet();
+		return template;
+	} 
 }
