@@ -49,15 +49,7 @@ public class WelcomeController {
 	private Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 	
 	@Autowired
-	private MyResponse<Object> response;
-	
-	@Autowired
 	public WxtbUserMapper wxtbUserMapper;
-	
-	@Resource
-	private StringRedisTemplate stringTemplate;
-	@Resource
-	private RedisTemplate<String, WxtbUser> template;
 	
 	@Autowired
 	private RedisService redisService;
@@ -82,6 +74,7 @@ public class WelcomeController {
 	@GetMapping("/test")
 	@ResponseBody
 	public MyResponse<Object> test(){
+	    MyResponse<Object> response = new MyResponse<>();
 		List<WxtbUser> wxtbUsers = wxtbUserMapper.load();
 		for (WxtbUser wxtbUser : wxtbUsers) {
 			wxtbUser.setUsername(null);
@@ -90,5 +83,5 @@ public class WelcomeController {
 		response.setSuccess(wxtbUsers);
 		return response;
 	}
-	
+
 }

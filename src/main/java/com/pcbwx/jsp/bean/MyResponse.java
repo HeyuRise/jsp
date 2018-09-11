@@ -1,5 +1,6 @@
 package com.pcbwx.jsp.bean;
 
+import lombok.Data;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -7,38 +8,23 @@ import com.pcbwx.jsp.enums.ErrorCodeEnum;
 
 @Component
 @Scope("prototype")
+@Data
 public class MyResponse<T>{
-	
-	// 返回接口状态码
+
+	/**
+	 * 返回接口状态码
+	 */
 	private Integer code;
-	// 接口信息
+
+	/**
+	 * 接口信息
+	 */
 	private String msg;
-	// 返回接口数据
+
+	/**
+	 * 返回接口数据
+	 */
 	private T data;
-
-	public Integer getCode() {
-		return code;
-	}
-
-	public void setCode(Integer code) {
-		this.code = code;
-	}
-
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public T getData() {
-		return data;
-	}
-
-	public void setData(T data) {
-		this.data = data;
-	}
 	
 	/**
 	 * 重载response

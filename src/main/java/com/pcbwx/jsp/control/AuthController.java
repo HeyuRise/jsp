@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/auth")
 @Api(tags = "权限api")
-public class AuthController extends BaseController {
+public class AuthController {
 	
 	@Autowired
 	private AccountService accountService;
@@ -34,6 +34,7 @@ public class AuthController extends BaseController {
 	@ApiOperation("获取用户详情")
 	@GetMapping("/userDetail")
 	public MyResponse<Object> getUserAuths(HttpServletRequest request) {
+		MyResponse<Object> response = new MyResponse<>();
 		User wxtbUser = accountService.getWxtbUser();
 		if (wxtbUser == null) {
 			response.setCodeAndMsg(ErrorCodeEnum.SYSTEM_ERROR);
@@ -48,6 +49,7 @@ public class AuthController extends BaseController {
 	@GetMapping("/button")
 	public MyResponse<Object> buttonAppear(HttpServletRequest request,
 			@RequestParam("buttonId") Integer buttonId) {
+		MyResponse<Object> response = new MyResponse<>();
 		User wxtbUser = accountService.getWxtbUser();
 		boolean idAppear = accountService.getButtonAppear(
 				wxtbUser.getAccount(), buttonId);
