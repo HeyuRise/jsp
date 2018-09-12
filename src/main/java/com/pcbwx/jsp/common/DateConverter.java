@@ -8,6 +8,11 @@ import org.springframework.core.convert.converter.Converter;
 
 import com.pcbwx.jsp.util.StringUtil;
 
+/**
+ * @author heyu
+ *
+ * 重写接口日期类型解析方式
+ */
 public class DateConverter implements Converter<String, Date> {
 
 	@Override

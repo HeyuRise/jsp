@@ -34,20 +34,9 @@ import java.util.List;
 @Configuration
 public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer{
 
-	//
-
 	/**
-	 * 把返回Json中的null换为""
+	 * 指定日期接口解析方式
 	 */
-	@Bean
-	@Primary
-	@ConditionalOnMissingBean(ObjectMapper.class)
-	public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
-		ObjectMapper objectMapper = builder.createXmlMapper(false).build();
-		objectMapper.getSerializerProvider().setNullValueSerializer(new NullSerializer());
-		return objectMapper;
-	}
-
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(new DateConverter());
@@ -68,6 +57,18 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 		patterns.add("/swagger-resources/**");
 		patterns.add("/swagger-resources/**");
 		registry.addInterceptor(new SessionInterceptor()).excludePathPatterns(patterns); 
+	}
+
+	/**
+	 * 把返回Json中的null换为""
+	 */
+	@Bean
+	@Primary
+	@ConditionalOnMissingBean(ObjectMapper.class)
+	public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
+		ObjectMapper objectMapper = builder.createXmlMapper(false).build();
+		objectMapper.getSerializerProvider().setNullValueSerializer(new NullSerializer());
+		return objectMapper;
 	}
 
 	/**
