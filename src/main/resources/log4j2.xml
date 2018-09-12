@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN" monitorInterval="300">
 	<properties>
-		<property name="LOG_HOME">/opt/tbwechat/log/jsp/</property>
+		<property name="LOG_HOME">/opt/logs/jsp/</property>
 		<property name="INFO_FILE_NAME">info</property>
 		<property name="ERROR_FILE_NAME">error</property>
 	</properties>
