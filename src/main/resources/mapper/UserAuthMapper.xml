@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pcbwx.jsp.dao.UserAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.pcbwx.jsp.model.UserAuth" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="auth_type" property="authType" jdbcType="INTEGER" />
+    <result column="auth_name" property="authName" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="order_level" property="orderLevel" jdbcType="INTEGER" />
+    <result column="parent_auth" property="parentAuth" jdbcType="INTEGER" />
+    <result column="enable" property="enable" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, auth_type, auth_name, url, order_level, parent_auth, enable, sort, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_auth
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_auth
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcbwx.jsp.model.UserAuth" >
+    insert into user_auth (id, auth_type, auth_name, 
+      url, order_level, parent_auth, 
+      enable, sort, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{authType,jdbcType=INTEGER}, #{authName,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{orderLevel,jdbcType=INTEGER}, #{parentAuth,jdbcType=INTEGER}, 
+      #{enable,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcbwx.jsp.model.UserAuth" >
+    insert into user_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="authType != null" >
+        auth_type,
+      </if>
+      <if test="authName != null" >
+        auth_name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="orderLevel != null" >
+        order_level,
+      </if>
+      <if test="parentAuth != null" >
+        parent_auth,
+      </if>
+      <if test="enable != null" >
+        enable,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=INTEGER},
+      </if>
+      <if test="authName != null" >
+        #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderLevel != null" >
+        #{orderLevel,jdbcType=INTEGER},
+      </if>
+      <if test="parentAuth != null" >
+        #{parentAuth,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null" >
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcbwx.jsp.model.UserAuth" >
+    update user_auth
+    <set >
+      <if test="authType != null" >
+        auth_type = #{authType,jdbcType=INTEGER},
+      </if>
+      <if test="authName != null" >
+        auth_name = #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderLevel != null" >
+        order_level = #{orderLevel,jdbcType=INTEGER},
+      </if>
+      <if test="parentAuth != null" >
+        parent_auth = #{parentAuth,jdbcType=INTEGER},
+      </if>
+      <if test="enable != null" >
+        enable = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcbwx.jsp.model.UserAuth" >
+    update user_auth
+    set auth_type = #{authType,jdbcType=INTEGER},
+      auth_name = #{authName,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      order_level = #{orderLevel,jdbcType=INTEGER},
+      parent_auth = #{parentAuth,jdbcType=INTEGER},
+      enable = #{enable,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 以下为自定义接口 -->
+  <select id="load" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_auth
+    where enable = 1
+  </select>
+  <select id="selectByAuthType" resultMap="BaseResultMap" parameterType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from user_auth
+    where enable = 1
+    and auth_type = #{authType,jdbcType=INTEGER}
+  </select>
+  <select id="selectByAuthName" resultMap="BaseResultMap" parameterType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from user_auth
+    where auth_name = #{authName,jdbcType=VARCHAR}
+  </select>
+</mapper>

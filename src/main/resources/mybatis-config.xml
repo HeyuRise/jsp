@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<!-- 开启全部复杂的(关联)自动映射 -->
+		<setting name="autoMappingBehavior" value="FULL" />
+		<!-- 开启所有表的自动增长 -->
+		<setting name="useGeneratedKeys" value="true" />
+		<!-- 二级缓存 -->
+		<setting name="cacheEnabled" value="true" />
+		<!-- 开启懒加载，默认开启 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="aggressiveLazyLoading" value="true" />
+	</settings>
+
+	<!-- 给实体类取别名，简化配置文件 -->
+	<typeAliases>
+		<package name="com.pcbwx.jsp.bean" />
+	</typeAliases>
+	
+	<mappers>
+
+	</mappers>
+
+</configuration>
