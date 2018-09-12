@@ -1,7 +1,3 @@
-mybatis:
-  config-location: classpath:mybatis-config.xml
-  mapper-locations: classpath:mapper/*.xml
-
 #项目接口请求前缀,如果是部署在tomcat下，必须配置该项，且必须与项目名称一致
 server:
   port: 7080

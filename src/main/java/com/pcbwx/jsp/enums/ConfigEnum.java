@@ -9,6 +9,7 @@ public enum ConfigEnum {
 	
 	//------------------ 配置文件配置项 -------------------------------
 	SERVICE_MAIN_URL("service.main.url", "服务地址前缀"),
+	DEBUG_LOG("debug.log", "日志环境"),
 	DEBUG_WITHOUT_LOGIN("debug.without.login", "是否调试(免登录)"),
 	
 	//------------------ config表配置项 -------------------------------

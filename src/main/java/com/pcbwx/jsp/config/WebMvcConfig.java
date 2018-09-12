@@ -1,14 +1,19 @@
 package com.pcbwx.jsp.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pcbwx.jsp.common.DateConverter;
+import com.pcbwx.jsp.common.NullSerializer;
+import com.pcbwx.jsp.interceptor.PageFilter;
+import com.pcbwx.jsp.interceptor.SessionInterceptor;
+import org.apache.ibatis.session.AutoMappingBehavior;
+import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -16,11 +21,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pcbwx.jsp.common.DateConverter;
-import com.pcbwx.jsp.common.NullSerializer;
-import com.pcbwx.jsp.interceptor.PageFilter;
-import com.pcbwx.jsp.interceptor.SessionInterceptor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * springWeb配置类
@@ -72,7 +74,7 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 	 * 添加过滤器
 	 */
 	@Bean
-	@Order(Integer.MAX_VALUE) // 指定过滤器顺序（小一级为Integer.MAX_VALUE - 1）
+	@Order(Ordered.HIGHEST_PRECEDENCE)
 	public FilterRegistrationBean<PageFilter> filterRegistrationBean() {
 		FilterRegistrationBean<PageFilter> registrationBean = new FilterRegistrationBean<PageFilter>();
 		PageFilter loginFilter = new PageFilter();
@@ -82,6 +84,25 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 		urlPatterns.add("*.html");
 		registrationBean.setUrlPatterns(urlPatterns);
 		return registrationBean;
+	}
+
+    /**
+     * mybatis配置
+     * @return
+     */
+	@Bean
+	ConfigurationCustomizer mybatisConfig(){
+		return configuration -> {
+		    // setting
+			configuration.setUseGeneratedKeys(true);
+			configuration.setCacheEnabled(true);
+			configuration.setLazyLoadingEnabled(true);
+			configuration.setAutoMappingBehavior(AutoMappingBehavior.FULL);
+            configuration.setAggressiveLazyLoading(true);
+
+            // typeAlias
+            configuration.getTypeAliasRegistry().registerAliases("com.pcbwx.jsp.bean");
+		};
 	}
 	
 }

@@ -1,19 +1,14 @@
 package com.pcbwx.jsp.common;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.pcbwx.jsp.SystemStart;
 import com.pcbwx.jsp.enums.ConfigEnum;
 import com.pcbwx.jsp.exception.BusinessException;
 import com.pcbwx.jsp.exception.ExceptionType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.util.Properties;
 
 /**
  * 初始化静态变量
@@ -30,8 +25,11 @@ public class ConfigProperties {
 
 	public static final Properties props = new Properties();
 
+	private static boolean debugLog;
+	private static boolean debugWithoutLogin;
+
 	static {
-		String configFile = System.getenv("CONFIG_SPACE") + "/" + SystemStart.MYSYSTEMCODE + "/" + FILENAME;
+		String configFile = System.getenv("CONFIG_SPACE") + "/" + SystemStart.SYSTEM + "/" + FILENAME;
 		InputStream in = null;
 		try {
 			in = new FileInputStream(new File(configFile));
@@ -52,6 +50,9 @@ public class ConfigProperties {
 				}
 			}
 		}
+
+        debugLog = getPropertyBoolean(ConfigEnum.DEBUG_LOG);
+        debugWithoutLogin = getPropertyBoolean(ConfigEnum.DEBUG_WITHOUT_LOGIN);
 	}
 
 	public static String getProperty(ConfigEnum config) {
@@ -62,8 +63,9 @@ public class ConfigProperties {
 		return (Integer)props.get(config.getCode());
 	}
 	
-	public static Boolean getPropertyBoolean(ConfigEnum config) {
-		return (Boolean) props.get(config.getCode());
+	public static boolean getPropertyBoolean(ConfigEnum config) {
+	    String property = props.getProperty(config.getCode());
+		return Boolean.valueOf(property);
 	}
 	
 	public static String getProperty(ConfigEnum config, String defValue) {
@@ -82,5 +84,13 @@ public class ConfigProperties {
 			return defValue;
 		}
 		return Integer.valueOf(value);
+	}
+
+	public static boolean getDebugLog(){
+		return debugLog;
+	}
+
+	public static boolean getDebugWithOutLogin(){
+		return debugWithoutLogin;
 	}
 }
