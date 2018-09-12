@@ -19,7 +19,10 @@ import org.springframework.core.Ordered;
 import java.net.URI;
 
 /**
+ * log4j2配置类
+ *
  * @author heyu
+ * @date 2018-09-12
  */
 @Plugin(name = "log4j2Config", category = ConfigurationFactory.CATEGORY)
 @Order(Ordered.HIGHEST_PRECEDENCE)

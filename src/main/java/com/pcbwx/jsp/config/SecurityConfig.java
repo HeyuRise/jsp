@@ -20,7 +20,7 @@ import com.pcbwx.jsp.util.MD5Util;
  * springSecurity配置类
  * 
  * @author 孙贺宇
- *
+ * @date 2018-09-12
  */
 @EnableWebSecurity
 @Configuration
