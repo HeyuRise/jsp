@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.pcbwx.jsp.model.UserRole;
-import org.springframework.cache.annotation.EnableCaching;
 
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 
