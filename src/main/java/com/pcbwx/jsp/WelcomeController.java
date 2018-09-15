@@ -56,7 +56,7 @@ public class WelcomeController {
 
 	@GetMapping("/redis-list")
 	@ResponseBody
-	public Object welcome() {
+	public Object redislist() {
 		return redisService.getDictionarys(DictionaryEnum.PAY_METHOD);
 	}
 
@@ -69,6 +69,11 @@ public class WelcomeController {
 	@GetMapping("/login")
 	public String login() {
 		return "login";
+	}
+
+	@GetMapping("/index")
+	public String welcome() {
+		return "welcome";
 	}
 	
 	@GetMapping("/test")
