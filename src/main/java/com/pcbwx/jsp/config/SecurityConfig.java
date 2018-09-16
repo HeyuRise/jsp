@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable(); // 关闭csrf
 		http.authorizeRequests()
 				// 添加默认权限
-				.antMatchers("/index.html", "/html/**").authenticated()
+				.antMatchers("/index", "/html/**").authenticated()
 				// .anyRequest().authenticated() // 任何请求,登录后可以访问
-				.and().formLogin().loginPage("/login").failureUrl("/login").defaultSuccessUrl("/index.html").permitAll()
+				.and().formLogin().loginPage("/login").failureUrl("/login").defaultSuccessUrl("/index").permitAll()
 				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login").permitAll();
 		http.addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class);
 	}
