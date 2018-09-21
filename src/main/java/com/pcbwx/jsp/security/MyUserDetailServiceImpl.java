@@ -30,8 +30,6 @@ import com.pcbwx.jsp.util.StringUtil;
 @Service("userDetailService")
 public class MyUserDetailServiceImpl implements UserDetailsService {
 	
-	Logger logger = LoggerFactory.getLogger(MyUserDetailServiceImpl.class);
-	
 	@Autowired
 	private CacheService cacheService;
 	@Autowired

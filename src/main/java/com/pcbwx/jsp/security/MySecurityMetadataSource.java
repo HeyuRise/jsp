@@ -38,8 +38,6 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 
 	private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 	
-	private RequestMatcher pathMatcher;
-	
 	@Autowired
 	private UserRoleMapper userRoleMapper;
 	@Autowired
@@ -71,6 +69,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 		if (resourceMap == null) {
             loadResource();
 		}
+        RequestMatcher pathMatcher;
 		FilterInvocation fi = ((FilterInvocation) object);
 		// 资源url遍历
 		Iterator<String> it = resourceMap.keySet().iterator();
