@@ -100,9 +100,10 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 			configuration.setLazyLoadingEnabled(true);
 			configuration.setAutoMappingBehavior(AutoMappingBehavior.FULL);
             configuration.setAggressiveLazyLoading(true);
+            configuration.setMapUnderscoreToCamelCase(true);
 
             // typeAlias
-            configuration.getTypeAliasRegistry().registerAliases("com.pcbwx.jsp.bean");
+            configuration.getTypeAliasRegistry().registerAliases("com.ekk.cloudservice.sms.pojo");
 		};
 	}
 	
