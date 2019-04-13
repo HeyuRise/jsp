@@ -1,0 +1,46 @@
+server:
+  port: 7080
+  servlet:
+    context-path: /jsp
+mybatis:
+  mapper-locations: classpath:mapper/*xml
+logging:
+  level:
+    root: INFO
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jsp?useSSL=false
+    username: root
+    password: JKcSL(a4MtVHLah4
+  redis:
+    database: 1
+    host: localhost
+    password: 123456
+    port: 6379
+    timeout: 5000
+  #jackson日期解析格式
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  #编码格式encoding
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  messages:
+    encoding: UTF-8
+  #配置改变内容不需要重启的路径
+  devtools:
+    restart:
+      exclude: static/**
+
+#定时调度
+reload:
+  timer:
+    fixedRate: 60000
+plan:
+  generate:
+    timer:
+      corn: 0 0/1 * ? * *
