@@ -26,13 +26,13 @@ import java.util.List;
 
 /**
  * springWeb配置类
- * 
+ *
  * @author 孙贺宇
  * @date 2018-09-12
  */
 @EnableWebMvc
 @Configuration
-public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer{
+public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer {
 
 	/**
 	 * 指定日期接口解析方式
@@ -48,15 +48,11 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		List<String> patterns = new ArrayList<>();
-		patterns.add("/html/**");
-		patterns.add("/script/**");
-		patterns.add("/print/**");
-		patterns.add("/index.html");
 		patterns.add("/swagger-ui.html");
 		patterns.add("/webjars/**");
 		patterns.add("/swagger-resources/**");
 		patterns.add("/swagger-resources/**");
-		registry.addInterceptor(new SessionInterceptor()).excludePathPatterns(patterns); 
+		registry.addInterceptor(new SessionInterceptor()).excludePathPatterns(patterns);
 	}
 
 	/**
@@ -87,24 +83,25 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 		return registrationBean;
 	}
 
-    /**
-     * mybatis配置
-     * @return
-     */
+	/**
+	 * mybatis配置
+	 *
+	 * @return
+	 */
 	@Bean
-	ConfigurationCustomizer mybatisConfig(){
+	ConfigurationCustomizer mybatisConfig() {
 		return configuration -> {
-		    // setting
+			// setting
 			configuration.setUseGeneratedKeys(true);
 			configuration.setCacheEnabled(true);
 			configuration.setLazyLoadingEnabled(true);
 			configuration.setAutoMappingBehavior(AutoMappingBehavior.FULL);
-            configuration.setAggressiveLazyLoading(true);
-            configuration.setMapUnderscoreToCamelCase(true);
+			configuration.setAggressiveLazyLoading(true);
+			configuration.setMapUnderscoreToCamelCase(true);
 
-            // typeAlias
-            configuration.getTypeAliasRegistry().registerAliases("com.ekk.cloudservice.sms.pojo");
+			// typeAlias
+			configuration.getTypeAliasRegistry().registerAliases("com.ekk.cloudservice.sms.pojo");
 		};
 	}
-	
+
 }

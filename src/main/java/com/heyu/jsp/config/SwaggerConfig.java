@@ -23,12 +23,23 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     @Bean
-    public Docket createRestApi() {
+    public Docket addUp() {
+        return baseDocket("接口", "com.pcbwx.jsp.control");
+    }
+
+    /**
+     * 生成文档
+     * @param groupName      文档名称
+     * @param basePackage    包名
+     * @return
+     */
+    private Docket baseDocket(String groupName, String basePackage){
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("接口")
+                .groupName(groupName)
+                .enable(true)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.pcbwx.jsp.control"))
+                .apis(RequestHandlerSelectors.basePackage(basePackage))
                 .paths(PathSelectors.any())
                 .build();
     }
