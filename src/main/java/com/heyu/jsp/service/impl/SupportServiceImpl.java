@@ -69,7 +69,7 @@ public class SupportServiceImpl implements SupportService {
 	@Autowired
 	private MenuMapper menuMapper;
 	
-	@PostConstruct
+	// @PostConstruct
 	public void reloadCacheInfo() {
 		logger.info("启动载入缓存...");
 		

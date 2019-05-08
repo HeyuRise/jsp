@@ -17,12 +17,15 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 /**
  * springWeb配置类
@@ -32,7 +35,7 @@ import java.util.List;
  */
 @EnableWebMvc
 @Configuration
-public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer {
+public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer, SchedulingConfigurer {
 
 	/**
 	 * 指定日期接口解析方式
@@ -104,4 +107,9 @@ public class WebMvcConfig extends WebMvcAutoConfiguration implements WebMvcConfi
 		};
 	}
 
+	@Override
+	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+		// 设定一个长度10的定时任务线程池
+		taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));
+	}
 }
