@@ -16,8 +16,8 @@ public class HeyuTest implements Runnable {
 
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
 		// for (int i = 0; i < 10; i++)
-		// checkAll(barrier);
-		future();
+		checkAll(barrier);
+		// future();
 	}
 
 	private static void future() throws ExecutionException, InterruptedException {
