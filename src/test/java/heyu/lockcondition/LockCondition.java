@@ -1,7 +1,6 @@
 package heyu.lockcondition;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -10,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class LockCondition {
 
-    private static BlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue<>(10);
+    private static ArrayBlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue<>(10);
 
     public static void main(String[] args) throws InterruptedException {
         for (int i = 0; i < 10; i++){
