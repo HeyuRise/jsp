@@ -39,7 +39,7 @@ spring:
 #定时调度
 reload:
   timer:
-    fixedRate: 1000
+    fixedRate: 60000
 plan:
   generate:
     timer:

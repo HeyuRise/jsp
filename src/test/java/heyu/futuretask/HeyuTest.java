@@ -1,7 +1,5 @@
 package heyu.futuretask;
 
-import heyu.futuretask.Cyc;
-
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.LongAdder;
 
@@ -16,8 +14,9 @@ public class HeyuTest implements Runnable {
 
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
 		// for (int i = 0; i < 10; i++)
-		checkAll(barrier);
-		// future();
+		// checkAll(barrier);
+		future();
+		System.out.println("xxxxxxxx");
 	}
 
 	private static void future() throws ExecutionException, InterruptedException {
@@ -26,12 +25,8 @@ public class HeyuTest implements Runnable {
 		FutureTask<String> ft2 = new FutureTask<>(new T2Task());
 		// 创建任务 T1 的 FutureTask
 		FutureTask<String> ft1 = new FutureTask<>(new T1Task(ft2));
-		// 线程 T1 执行任务 ft1
-		Thread T1 = new Thread(ft1);
-		es.submit(T1);
-		// 线程 T2 执行任务 ft2
-		Thread T2 = new Thread(ft2);
-		es.submit(T2);
+		es.submit(ft1);
+		es.submit(ft2);
 		// 等待线程 T1 执行结果
 		System.out.println(ft1.get());
 

@@ -44,7 +44,7 @@ public class ConfigServiceImpl implements ConfigService {
 
 	private Hashtable<String, Config> configCache = new Hashtable<String, Config>();
 
-	@PostConstruct
+	// @PostConstruct
 	public void initLoad() {
 		reloadConfig();
 	}

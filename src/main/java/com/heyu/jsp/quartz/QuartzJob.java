@@ -31,12 +31,12 @@ public class QuartzJob {
 	@Autowired
 	private SupportService supportService;
 
-	@Scheduled(fixedRate = 1000)
+	@Scheduled(fixedRateString = "${reload.timer.fixedRate}")
 	public void reloadCache() {
 		log.info("reloadCache的任务调度！！！");
 		lock.tryLock();
 		try {
-			supportService.doReloadCache();
+			// supportService.doReloadCache();
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {
