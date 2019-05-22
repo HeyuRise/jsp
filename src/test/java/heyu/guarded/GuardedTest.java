@@ -10,20 +10,21 @@ import java.util.concurrent.TimeUnit;
 public class GuardedTest {
 
 	public static void main(String[] args) throws InterruptedException {
-        long id = 1L;
-        new Thread(() -> {
-            Message message = handleWebReq(id);
-            System.out.println(message);
-        }).start();
-        TimeUnit.SECONDS.sleep(2);
+		long id = 1L;
+		new Thread(() -> {
+			Message message = handleWebReq(id);
+			System.out.println(message);
+		}).start();
+		TimeUnit.SECONDS.sleep(2);
 		new Thread(() -> onMessage(new Message(id, "xxxxxxxxxxxxxxx"))).start();
 	}
 
-    /**
-     * 处理浏览器发来的请求
-     * @param id
-     * @return
-     */
+	/**
+	 * 处理浏览器发来的请求
+	 * 
+	 * @param id
+	 * @return
+	 */
 	private static Message handleWebReq(long id) {
 
 		// 创建一消息
@@ -35,10 +36,11 @@ public class GuardedTest {
 		return go.get(Objects::nonNull);
 	}
 
-    /**
-     * 消息返回
-     * @param msg
-     */
+	/**
+	 * 消息返回
+	 * 
+	 * @param msg
+	 */
 	private static void onMessage(Message msg) {
 		// 唤醒等待的线程
 		GuardedObject.fireEvent(msg.getId(), msg);
