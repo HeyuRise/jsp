@@ -33,12 +33,12 @@ public class RedisServiceImpl implements RedisService {
 	private static Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
 
 	@Autowired
-	private RedisTemplate<String, Dictionary> templateDic;
+	private RedisTemplate<String, Dictionary> dictionary;
 
 	@Override
-	public void reloadDictionary(List<Dictionary> dictionarys) {
-		ValueOperations<String, Dictionary> operation = templateDic.opsForValue();
-		for (Dictionary record : dictionarys) {
+	public void reloadDictionary(List<Dictionary> dictionaries) {
+		ValueOperations<String, Dictionary> operation = dictionary.opsForValue();
+		for (Dictionary record : dictionaries) {
 			String key = RedisKeyEnum.DICTIONARY.getCode() + ":" + record.getType();
 			if (record.getInnerId() != null) {
 				key = key + ":" + record.getInnerId();
@@ -55,16 +55,16 @@ public class RedisServiceImpl implements RedisService {
 
 		Map<String, List<Dictionary>> dicCache = new HashMap<>(50);
 		try {
-			dicCache = DataUtil.list2mapList(dictionarys, Dictionary.class, "type");
+			dicCache = DataUtil.list2mapList(dictionaries, Dictionary.class, "type");
 			logger.info("字典类别缓存条数:" + dicCache.size());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ListOperations<String, Dictionary> listOperation = templateDic.opsForList();
+		ListOperations<String, Dictionary> listOperation = dictionary.opsForList();
 		for (Map.Entry<String, List<Dictionary>> entry : dicCache.entrySet()) {
 			String key = RedisKeyEnum.DICTIONARY.getCode() + ":" + entry.getKey();
-            templateDic.delete(key);
+			dictionary.delete(key);
 			List<Dictionary> dic = entry.getValue();
 			for (Dictionary dictionary : dic) {
 				listOperation.leftPush(key, dictionary);
@@ -77,19 +77,19 @@ public class RedisServiceImpl implements RedisService {
 	public Dictionary getDictionary(DictionaryEnum type, Integer innerId) {
 		String key = RedisKeyEnum.DICTIONARY.getCode() + ":" + type.getCode() + ":"
 				+ innerId;
-		return templateDic.opsForValue().get(key);
+		return dictionary.opsForValue().get(key);
 	}
 
 	@Override
 	public Dictionary getDictionary(DictionaryEnum type, String innerCode) {
 		String key = RedisKeyEnum.DICTIONARY.getCode() + ":" + type.getCode() + ":"
 				+ innerCode;
-		return templateDic.opsForValue().get(key);
+		return dictionary.opsForValue().get(key);
 	}
 
 	@Override
 	public List<Dictionary> getDictionarys(DictionaryEnum type) {
-		ListOperations<String, Dictionary> operation = templateDic.opsForList();
+		ListOperations<String, Dictionary> operation = dictionary.opsForList();
 		String key = RedisKeyEnum.DICTIONARY.getCode() + ":" + type.getCode();
 		List<Dictionary> list = operation.range(key, 0, -1);
 		logger.info(JsonUtil.obj2json(list));

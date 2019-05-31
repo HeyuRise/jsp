@@ -38,7 +38,7 @@ import com.heyu.jsp.enums.DictionaryEnum;
  *
  */
 
-@Service("accountService")
+@Service
 public class AccountServiceImpl implements AccountService {
 	
 	@Autowired
