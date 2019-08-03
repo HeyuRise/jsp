@@ -4,8 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import com.heyu.jsp.model.Config;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
+/**
+ * @author heyu
+ */
+@Mapper
+@Component
 public interface ConfigMapper extends BaseMapper<Config> {
 	List<Config> load();	
 	// 根据名称获取配置信息

@@ -16,9 +16,8 @@
 
 package com.heyu.jsp;
 
-import com.heyu.jsp.bean.MyResponse;
-import com.heyu.jsp.dao.WxtbUserMapper;
-import com.heyu.jsp.enums.DictionaryEnum;
+import java.util.List;
+
 import com.heyu.jsp.model.WxtbUser;
 import com.heyu.jsp.service.RedisService;
 import org.slf4j.Logger;
@@ -28,7 +27,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.heyu.jsp.bean.MyResponse;
+import com.heyu.jsp.dao.WxtbUserMapper;
+import com.heyu.jsp.enums.ConfigEnum;
+import com.heyu.jsp.enums.DictionaryEnum;
 
 /**
  * demos

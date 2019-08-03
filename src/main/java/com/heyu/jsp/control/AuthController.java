@@ -60,5 +60,11 @@ public class AuthController {
 		response.setCodeAndMsg(ErrorCodeEnum.SYSTEM_ERROR);
 		return response;
 	}
+
+	@GetMapping("/test")
+	public Object test(){
+
+		return null;
+	}
 	
 }

@@ -4,8 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import com.heyu.jsp.model.Dictionary;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
+/**
+ * @author heyu
+ */
+@Mapper
+@Component
 public interface DictionaryMapper extends BaseMapper<Dictionary> {
 	List<Dictionary> load();
 	

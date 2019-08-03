@@ -10,9 +10,19 @@ logging:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://rm-bp1172q9jz0254t4e3o.mysql.rds.aliyuncs.com:3306/jsp?useSSL=false
+    url: jdbc:mysql://47.93.30.98:3306/jsp?useSSL=false
     username: root
-    password: JKcSL(a4MtVHLah4
+    password: mn814561293
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      auto-commit: true
+      minimum-idle: 1
+      maximum-pool-size: 15
+      idle-timeout: 30000
+      pool-name: jsp-cp
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
   redis:
     database: 1
     host: 47.93.30.98

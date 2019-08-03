@@ -22,8 +22,8 @@ import com.heyu.jsp.util.MD5Util;
  * @author 孙贺宇
  * @date 2018-09-12
  */
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -46,11 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/oiss_web_service/**");
-		// 排除不需要拦截的路径
-		web.ignoring().antMatchers("/script/**");
-		web.ignoring().antMatchers("/eda/**");
+	public void configure(WebSecurity web){
 		// swagger路径
 		web.ignoring().antMatchers("/webjars/**", "/swagger-resources/**", "/v2/**", "/swagger-ui.html");
 		
