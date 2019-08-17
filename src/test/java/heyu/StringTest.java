@@ -20,7 +20,7 @@ public class StringTest {
         long a = System.currentTimeMillis();
         threadLocal.set(a);
 		StringBuilder xxx = new StringBuilder("xxx");
-		for (int i = 0; i < 1000000; i++) {
+		for (int i = 0; i < 100000000; i++) {
 			xxx.append("a");
 		}
 		long b = System.currentTimeMillis();
@@ -32,7 +32,7 @@ public class StringTest {
         long a = System.currentTimeMillis();
         threadLocal.set(a);
 		StringBuffer xxx = new StringBuffer("xxx");
-		for (int i = 0; i < 1000000; i++) {
+		for (int i = 0; i < 100000000; i++) {
 			xxx.append("a");
 		}
         long b = System.currentTimeMillis();
@@ -50,5 +50,9 @@ public class StringTest {
         long b = System.currentTimeMillis();
         threadLocal2.set(b);
         System.out.println("String        " + (threadLocal2.get() - threadLocal.get()));
+	}
+
+	class Axf{
+
 	}
 }
