@@ -1,4 +1,4 @@
-package heyu.leetcode;
+package leetcode;
 
 import java.util.*;
 import java.util.regex.Matcher;
