@@ -13,12 +13,8 @@ public class geek {
 	}
 
 	public static void main(String[] args) {
-		long a = System.currentTimeMillis();
 		insertionSort(new int[] { 6, 5, 4, 3, 2, 1 }, 6);
-		print(System.currentTimeMillis() - a);
-		long b = System.currentTimeMillis();
 		bubbleSort(new int[] { 6, 5, 4, 3, 2, 1 }, 6);
-		print(System.currentTimeMillis() - b);
 	}
 
 	// 冒泡排序，a 表示数组，n 表示数组大小
@@ -48,22 +44,19 @@ public class geek {
 
 	// 插入排序，a 表示数组，n 表示数组大小
 	public static void insertionSort(int[] a, int n) {
-		if (n <= 1) {
+		if (n <= 1){
 			return;
 		}
-		for (int i = 1; i < n; ++i) {
+		for (int i = 1; i < a.length; i++) {
 			int value = a[i];
-			int j = i - 1;
-			// 查找插入的位置
-			for (; j >= 0; --j) {
-				if (a[j] > value) {
-					// 数据移动
-					a[j + 1] = a[j];
+			int j = i - 1 ;
+			for (;j >= 0; j--){
+				if (a[j] < value){
+					a[j] = a[j - 1];
 				} else {
 					break;
 				}
 			}
-			// 插入数据
 			a[j + 1] = value;
 		}
 		print(Arrays.toString(a));
