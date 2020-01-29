@@ -15,6 +15,7 @@ public class geek {
 	public static void main(String[] args) {
 		insertionSort(new int[] { 6, 5, 4, 3, 2, 1 }, 6);
 		bubbleSort(new int[] { 6, 5, 4, 3, 2, 1 }, 6);
+		quickSort(new int[] { 6, 5, 4, 3, 2, 1 });
 	}
 
 	// 冒泡排序，a 表示数组，n 表示数组大小
@@ -44,14 +45,14 @@ public class geek {
 
 	// 插入排序，a 表示数组，n 表示数组大小
 	public static void insertionSort(int[] a, int n) {
-		if (n <= 1){
+		if (n <= 1) {
 			return;
 		}
 		for (int i = 1; i < a.length; i++) {
 			int value = a[i];
-			int j = i - 1 ;
-			for (;j >= 0; j--){
-				if (a[j] < value){
+			int j = i - 1;
+			for (; j >= 0; j--) {
+				if (a[j] < value) {
 					a[j] = a[j - 1];
 				} else {
 					break;
@@ -59,6 +60,41 @@ public class geek {
 			}
 			a[j + 1] = value;
 		}
+		print(Arrays.toString(a));
+	}
+
+	/**
+	 * 快速排序
+	 * 
+	 * @param a
+	 * @param low
+	 * @param hight
+	 */
+	public static void sort(int[] a, int low, int hight) {
+		int i, j, index;
+		if (low > hight) {
+			return;
+		}
+		i = low;
+		j = hight;
+		index = a[i]; // 用子表的第一个记录做基准
+		while (i < j) { // 从表的两端交替向中间扫描
+			while (i < j && a[j] >= index)
+				j--;
+			if (i < j)
+				a[i++] = a[j];// 用比基准小的记录替换低位记录
+			while (i < j && a[i] < index)
+				i++;
+			if (i < j) // 用比基准大的记录替换高位记录
+				a[j--] = a[i];
+		}
+		a[i] = index;// 将基准数值替换回 a[i]
+		sort(a, low, i - 1); // 对低子表进行递归排序
+		sort(a, i + 1, hight); // 对高子表进行递归排序
+	}
+
+	public static void quickSort(int[] a) {
+		sort(a, 0, a.length - 1);
 		print(Arrays.toString(a));
 	}
 
