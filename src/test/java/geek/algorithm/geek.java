@@ -1,4 +1,4 @@
-package geek;
+package geek.algorithm;
 
 import java.util.Arrays;
 

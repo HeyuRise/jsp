@@ -1,14 +1,13 @@
-package geek;
+package geek.algorithm;
+
+import geek.pattern.Test;
+
+import java.util.Arrays;
 
 public class DynamicProgramming {
 
 	public static void print(Object object) {
 		System.out.println(object);
-	}
-
-	public static void main(String[] args) {
-		// print(minDist(3, 3));
-		print(getMoneyNumber(a.length - 1, money));
 	}
 
 	private static int minDist = Integer.MAX_VALUE; // 全局变量或者成员变量
@@ -98,6 +97,13 @@ public class DynamicProgramming {
 	public static int[] a = { 1, 2, 5, 10, 20, 50, 100 };
 	public static int money = 999999;
 
+	/**
+	 * 找钱问题
+	 * 
+	 * @param i
+	 * @param leaveMoney
+	 * @return
+	 */
 	public static int getMoneyNumber(int i, int leaveMoney) {
 		if (leaveMoney == 0) {
 			return 0;
@@ -108,4 +114,38 @@ public class DynamicProgramming {
 		}
 		return leaveMoney / x + getMoneyNumber(i - 1, leaveMoney % x);
 	}
+
+	public static int[] l = { 2, 9, 3, 6, 5, 1, 7 };
+
+	/**
+	 * 找出以peaches[i]结尾的最长增长子序列
+	 * @param peaches
+	 * @return
+	 */
+	public static int getLongestInsArray(int[] peaches) {
+		// 用于存储子序列的长度
+		int[] subSeqLen = new int[peaches.length];
+		for (int x = 0; x < peaches.length; x++) {
+			// 初始化最长子序列长度
+			subSeqLen[x] = 1;
+			// 找出前x+1项最长的序列
+			for (int y = 0; y < x; y++) {
+				if (peaches[x] > peaches[y] && subSeqLen[y] + 1 > subSeqLen[x]) {
+					subSeqLen[x] = subSeqLen[y] + 1;
+				}
+			}
+		}
+		Arrays.sort(subSeqLen);
+		print(Arrays.toString(subSeqLen));
+		return subSeqLen[subSeqLen.length - 1];
+	}
+
+	public static void main(String[] args) {
+		// print(minDist(3, 3));
+		// print(getMoneyNumber(a.length - 1, money));
+		// print(getLongestInsArray(l));
+
+		print(Test.x);
+	}
+
 }

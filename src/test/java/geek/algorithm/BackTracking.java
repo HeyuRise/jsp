@@ -1,6 +1,4 @@
-package geek;
-
-import java.util.Arrays;
+package geek.algorithm;
 
 /**
  * @author heyu
