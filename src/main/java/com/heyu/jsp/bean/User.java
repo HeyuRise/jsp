@@ -28,20 +28,23 @@ public class User extends WxtbUser implements UserDetails {
 		return this.getHashedPassword();
 	}
 
+	@Override
 	public boolean isAccountNonExpired() {
-		return DataUtil.equals(getAccountNonExpired(), 1) ? true : false;
+		return DataUtil.equals(getAccountNonExpired(), 1);
 	}
 
+	@Override
 	public boolean isCredentialsNonExpired() {
-		return DataUtil.equals(getCredentialsNonExpired(), 1) ? true : false;
+		return DataUtil.equals(getCredentialsNonExpired(), 1);
 	}
 
+	@Override
 	public boolean isAccountNonLocked() {
-		return DataUtil.equals(getAccountNonLocked(), 1) ? true : false;
+		return DataUtil.equals(getAccountNonLocked(), 1);
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return this.getEnable() == 1 ? true : false;
+		return this.getEnable() == 1;
 	}
 }
