@@ -24,7 +24,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket addUp() {
-        return baseDocket("接口", "com.pcbwx.jsp.control");
+        return baseDocket("接口", "com.heyu.jsp.control");
     }
 
     /**

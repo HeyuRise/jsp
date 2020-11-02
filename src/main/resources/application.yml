@@ -8,8 +8,10 @@ logging:
   level:
     root: INFO
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://47.93.30.98:3306/jsp?useSSL=false
     username: root
     password: mn814561293
@@ -29,6 +31,9 @@ spring:
     password: mn814561293
     port: 6379
     timeout: 5000
+    jedis:
+      pool:
+        min-idle: 0
   #jackson日期解析格式
   jackson:
     time-zone: GMT+8
