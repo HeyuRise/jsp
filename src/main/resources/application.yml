@@ -2,14 +2,32 @@ server:
   port: 7080
   servlet:
     context-path: /jsp
+
 mybatis:
   mapper-locations: classpath:mapper/*xml
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
 logging:
   level:
     root: INFO
+
 spring:
   main:
     allow-bean-definition-overriding: true
+  #jackson日期解析格式
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  messages:
+    encoding: UTF-8
+  #配置改变内容不需要重启的路径
+  devtools:
+    restart:
+      exclude: static/**
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://47.93.30.98:3306/jsp?useSSL=false
@@ -34,22 +52,6 @@ spring:
     jedis:
       pool:
         min-idle: 0
-  #jackson日期解析格式
-  jackson:
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
-  #编码格式encoding
-  http:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-  messages:
-    encoding: UTF-8
-  #配置改变内容不需要重启的路径
-  devtools:
-    restart:
-      exclude: static/**
 
 #定时调度
 reload:
